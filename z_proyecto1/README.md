@@ -26,7 +26,7 @@ ASCII permitidos por el alfabeto definido en el programa.
     <li><strong>decodifica.c</strong> – Descomprime el mensaje original a partir del archivo comprimido.</li>
 </ul>
 <hr>
-<h2>Programa: <code>codifica.c</code></h2>
+<h2><mark>Programa: <code>codifica.c</code></mark></h2>
 <p>Este programa hace lo siguiente</p>
 <ol>
     <li>Recibe un archivo de texto como entrada</li>
@@ -104,12 +104,27 @@ Cada fila representa un carácter ASCII posible, y en cada columna se guarda un 
 <blockquote>
 <p style="padding-left: 40px;">
     <strong>Funcionamiento general:</strong><br>
-    Entrada: Codigos binarios de Huffnam y archivo de texto original<br>
+    Entrada: Matriz de codigos binarios de Huffnam (CBH) y archivo de texto original<br>
     1. Abrir el archivo original en modo lectura.<br>
-    2. Crear y abrir el archivo comprimido en modo binario/escritura
-    3. Se escribe el encabezado del archivo comprimido, incluyendo la información necesaria para reconstruir el árbol de Huffman.<br>
+    2. Crear y abrir el archivo comprimido en modo binario/escritura.<br>
+    3. Se escribe el encabezado del archivo comprimido, el cual se conforma de: </br>
+    <pre><code> numero_de_simbolos|tamaño_del_mensaje|carac|frec|carac|frec...carac|frec</code></pre>
+    4. Se lee el archivo original carácter por carácter, por cada carácter se obtiene su código binario de la matriz de códigos.<br>
+    5. Los bits del código Huffman se van agrupando en bytes.<br>
+    6. Cuando se completa un byte, este se escribe en el archivo comprimido.<br>
+    7. Si al final sobran bits que no completan un byte, se rellenan con ceros y se escribe el último byte.<br>
+    Salida: archivo comprimido
 </p>
 </blockquote>
+
+<hr>
+
+<h2><mark>Programa: <code>decodifica.c</code></mark></h2>
+
+
+
+
+
 
 
 
