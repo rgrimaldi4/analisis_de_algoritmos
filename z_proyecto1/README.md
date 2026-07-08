@@ -25,6 +25,12 @@ ASCII permitidos por el alfabeto definido en el programa.
     <li><strong>codifica.c</strong> – Comprime un archivo de texto utilizando el algoritmo de Huffman.</li>
     <li><strong>decodifica.c</strong> – Descomprime el mensaje original a partir del archivo comprimido.</li>
 </ul>
+
+<strong><p>Forma de ejecutar los programas:</p></strong>
+<pre><code>codifica mensaje.txt mensaje.cod</code></pre>    
+<pre><code>decodifica mensaje.cod</code></pre>    
+
+
 <hr>
 <h2><mark>Programa: <code>codifica.c</code></mark></h2>
 <p>Este programa hace lo siguiente</p>
@@ -38,8 +44,7 @@ ASCII permitidos por el alfabeto definido en el programa.
 
 <p>
     <strong>1. Datos de entrada.</strong><br>
-    <code>codifica.c</code> recibe por linea de comandos el nombre del archivo de texto de entrada y el nombre que tendrá el archivo comprimido, como se muestra en el siguiente ejemplo:
-    <pre><code>codifica.c mensaje.txt mensaje.cod</code></pre>
+    <code>codifica.c</code> recibe por linea de comandos el nombre del archivo de texto de entrada y el nombre que tendrá el archivo comprimido.
 </p>
 
 
@@ -90,7 +95,7 @@ ASCII permitidos por el alfabeto definido en el programa.
     6. El nodo con menor frecuencia se enlaza como hijo izquierdo y el otro como hijo derecho.<br>
     7. El nuevo nodo se inserta de nuevo en la cola de prioridad y esta se reordena. La inserción tiene una complejidad temporal <code>O(n²)</code> debido al reordenamiento<br>
     8. El proceso se repite hasta que solo queda un nodo, el cual corresponde a la raíz del árbol de Huffman.<br>
-    Salida: Arbol de Huffman correspondiente a los caracteres usados en el documento.
+    Salida: árbol de Huffman correspondiente a los caracteres usados en el documento.
 </p>
 </blockquote>
 
@@ -129,7 +134,46 @@ Cada fila representa un carácter ASCII posible, y en cada columna se guarda un 
     <li>Decodifica el mensaje e imprime el texto original en la consola</li>
 </ol>
 
+<p>
+    <strong>1. Construir el árbol de Huffman</strong><br>
+    Para decodificar se tiene que construir el arbol de Huffman.<br>
+    El árbol se crea a partir de los caracteres y sus frecuencias, tal informacio esta contenida en el encabezado del archivo comprimido.<br>
+</p>
+<blockquote>
+<p>
+    <strong>Funcionamiento general:</strong><br>
+    Entrada: archivo comprimido.<br>
+    1. Se lee el encabezado del archivo comprimido.<br>
+    2. Se lee cada caracter y su frecuencia<br>
+    3. Se crea un nodo hoja con el carácter y su frecuencia, y se inserta en la cola de prioridad.<br>
+    4. La cola de prioridad se ordena de menor a mayor según la frecuencia. La complejidad temporal del ordenamiento es cuadrática <code>O(n²)</code>.<br>
+    5. Una vez que la cola de prioridad está completa y ordenada, se ejecuta el algoritmo de Huffman (mismo que se describió anteriormente).<br>
+    6. En esta punto esta listo el árbol de Huffman<br>
+    Salida: árbol de Huffman reconstruido.
+</p>
+</blockquote>
 
 
+<p>
+    <strong>2. Decodificar el mensaje.</strong><br>
+    Una vez reconstruido el árbol de Huffman, se lee el mensaje comprimido bit por bit.<br>
+    Cada bit leído permite recorrer el árbol desde la raíz hasta llegar a una hoja, donde se encuentra el carácter original.
+</p>
+
+<blockquote>
+<p>
+    <strong>Funcionamiento general:</strong><br>
+    Entrada: archivo comprimido y árbol de Huffman reconstruido.<br>
+    1. Se inicializa un apuntador en la raíz del árbol de Huffman.<br>
+    2. Se lee el archivo comprimido byte por byte.<br>
+    3. Por cada byte leído, se extraen sus bits de izquierda a derecha.<br>
+    4. Si el bit leído es <code>0</code>, se avanza hacia el hijo izquierdo del árbol.<br>
+    5. Si el bit leído es <code>1</code>, se avanza hacia el hijo derecho del árbol.<br>
+    6. Cuando se llega a un nodo hoja, se imprime en la consola el carácter almacenado en ese nodo.<br>
+    7. Después de imprimir el carácter, el apuntador regresa a la raíz del árbol para continuar decodificando el siguiente carácter.<br>
+    8. El proceso se repite hasta imprimir la cantidad total de caracteres indicada en el encabezado.<br>
+    Salida: texto original impreso en la consola.
+</p>
+</blockquote>
 
 
