@@ -71,10 +71,6 @@ void decodificar(){
 }
 
 int main(int argc, char *argv[]){
-    /*CUENTO LAS FRECUENCIAS DE CADA CARACTER*/
-    char alfabeto[]   = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz., ";
-    int  longAlfabeto = sizeof(alfabeto);
-    int  *frecuencias = malloc(sizeof(int)*maxCodigos);
 
     char *ar_Nombre = argv[1];
     FILE *archivo = fopen(ar_Nombre, "rb");
