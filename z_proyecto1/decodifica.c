@@ -71,7 +71,7 @@ void decodificar(){
 }
 
 int main(int argc, char *argv[]){
-
+ 
     char *ar_Nombre = argv[1];
     FILE *archivo = fopen(ar_Nombre, "rb");
     
