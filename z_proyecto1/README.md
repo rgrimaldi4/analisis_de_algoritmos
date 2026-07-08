@@ -121,8 +121,13 @@ Cada fila representa un carácter ASCII posible, y en cada columna se guarda un 
 
 <h2><mark>Programa: <code>decodifica.c</code></mark></h2>
 
-
-
+<p>Este programa hace lo siguiente</p>
+<ol>
+    <li>Recibe el archivo comprimido de entrada</li>
+    <li>Se lee el encabezado y se crea y ordena la cola de prioridad</li>
+    <li>Construye el árbol de Huffman</li>
+    <li>Decodifica el mensaje e imprime el texto original en la consola</li>
+</ol>
 
 
 
