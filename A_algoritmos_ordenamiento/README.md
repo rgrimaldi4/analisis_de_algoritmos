@@ -233,23 +233,24 @@ Teóricamente se espera observar diferencias importantes entre los algoritmos co
 Los resultados experimentales deberán contrastarse con estos comportamientos teóricos mediante las gráficas de pasos y tiempos obtenidas.
 ---
 
-## 8. ✅ Conclusiones
+## 8. Conclusiones
 
-Describir las principales conclusiones obtenidas después de realizar los experimentos.
+La implementación de diferentes algoritmos para resolver un mismo problema permite observar que la estrategia utilizada tiene un efecto directo sobre la eficiencia computacional.
 
-Considerar:
+Los algoritmos cuadráticos, como Bubble Sort y el ordenamiento por selección In-Place, pueden funcionar adecuadamente para entradas pequeñas, pero su costo aumenta rápidamente conforme crece `n`.
 
-- ¿Qué algoritmo presentó mejor comportamiento?
-- ¿Cómo afecta el tamaño de entrada?
-- ¿Coincide el comportamiento experimental con la complejidad teórica?
-- ¿Qué ventajas o desventajas presenta cada solución?
+Merge Sort utiliza la estrategia de divide y vencerás para reducir el crecimiento a `O(n log n)`, lo que teóricamente permite un mejor comportamiento para conjuntos de datos grandes.
+
+Por otro lado, Permutation Sort presenta un crecimiento factorial y permite observar experimentalmente cómo un algoritmo puede volverse impráctico incluso con incrementos pequeños en el tamaño de entrada.
+
+La comparación entre el análisis teórico, el número de pasos y los tiempos de ejecución permite comprender la importancia de la complejidad algorítmica al seleccionar una solución para un problema.
 
 ---
 
-### 🛠️ Tecnologías utilizadas
+### Tecnologías utilizadas
 
 - **Lenguaje:** C
 - **Compilador:** GCC
 - **Medición de tiempo:** `clock()`
-- **Datos experimentales:** CSV
+- **Datos experimentales:** archivos CSV
 - **Materia:** Análisis de Algoritmos
