@@ -22,31 +22,47 @@ El propósito es comparar el crecimiento del número de pasos y del tiempo de ej
 ---
 
 ## 2. ⚙️ Algoritmos implementados
+
+### Ordenamiento por selección In-Place
 El algoritmo busca el elemento mayor dentro de la parte no ordenada del arreglo.
 
-Una vez localizado, intercambia dicho elemento con la última posición disponible. Después del intercambio, el límite de búsqueda se reduce en una posición y el proceso se repite hasta ordenar completamente el arreglo.
-
-Esta implementación trabaja directamente sobre el arreglo original, por lo que no necesita construir un segundo arreglo para almacenar el resultado.
+Una vez localizado, intercambia dicho elemento con la última posición disponible. Después del intercambio, el límite de búsqueda se reduce en una posición y el proceso se repite hasta ordenar completamente el arreglo. Esta implementación trabaja directamente sobre el arreglo original, por lo que no necesita construir un segundo arreglo para almacenar el resultado.
 
 La práctica también contempla variantes de esta estrategia mediante borrado físico y borrado lógico.
 
-### Algoritmo / Versión 1
+<b>Borrado físico</b>
+En esta versión, después de encontrar el elemento correspondiente, este se elimina físicamente del arreglo. Los elementos posteriores se desplazan una posición y el tamaño del arreglo disminuye.
 
-Describir brevemente cómo funciona la primera implementación.
+<b>Borrado lógico</b>
+En esta versión no se elimina físicamente el elemento. Después de seleccionar el mayor, su posición se marca para indicar que ya fue procesada.
 
-**Archivo:** `nombre_algoritmo_1.c`
+### Bubble Sort
+Bubble Sort recorre repetidamente el arreglo comparando elementos adyacentes.
 
-### Algoritmo / Versión 2
+Si dos elementos se encuentran en el orden incorrecto, se intercambian. Como resultado de cada recorrido, los elementos mayores se desplazan progresivamente hacia el final del arreglo.
 
-Describir brevemente cómo funciona la segunda implementación.
+Después de cada pasada se reduce la cantidad de elementos que necesitan ser comparados, ya que la parte final del arreglo se encuentra ordenada.
 
-**Archivo:** `nombre_algoritmo_2.c`
+**Archivo:** "bubble_sort/order.c"
 
-### Algoritmo / Versión 3
+### Merge Sort
+Merge Sort utiliza la estrategia de divide y vencerás.
 
-Describir brevemente cómo funciona la tercera implementación.
+El arreglo se divide recursivamente en dos partes hasta obtener subarreglos de un solo elemento. Posteriormente, durante el regreso de la recursión, los subarreglos se combinan mediante el proceso de merge.
 
-**Archivo:** `nombre_algoritmo_3.c`
+Durante esta combinación se comparan los elementos de ambos subarreglos y se colocan ordenadamente en el arreglo resultante.
+
+**Archivo:** "merge_sort/order.c"
+
+### Permutation Sort
+
+Permutation Sort genera diferentes permutaciones de los elementos del arreglo hasta encontrar un conjunto que se encuentre ordenado.
+
+Después de generar una permutación, el algoritmo recorre el arreglo para verificar si los elementos están ordenados.
+
+Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta el tamaño de entrada, por lo que presenta un crecimiento considerablemente mayor que los otros algoritmos estudiados.
+
+**Archivo:** "permutation_sort/order.c"
 
 ---
 
