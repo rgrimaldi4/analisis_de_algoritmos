@@ -12,10 +12,10 @@ Los datos de entrada se obtienen de un archivo que contiene números desordenado
 
 Se implementaron y analizaron los siguientes algoritmos:
 
-Ordenamiento por selección in-place: borrado fisico y borrado logico
-Bubble Sort.
-Merge Sort.
-Permutation Sort.
+- **Ordenamiento por selección in-place: borrado fisico y borrado logico.
+- **Bubble Sort.
+- **Merge Sort.
+- **Permutation Sort.
 
 El propósito es comparar el crecimiento del número de pasos y del tiempo de ejecución de cada algoritmo, relacionando los resultados experimentales con su complejidad teórica.
 
@@ -33,8 +33,12 @@ La práctica también contempla variantes de esta estrategia mediante borrado f�
 <b>Borrado físico</b>
 En esta versión, después de encontrar el elemento correspondiente, este se elimina físicamente del arreglo. Los elementos posteriores se desplazan una posición y el tamaño del arreglo disminuye.
 
+**Archivo:** "inplace/ordenamiento.c"
+
 <b>Borrado lógico</b>
-En esta versión no se elimina físicamente el elemento. Después de seleccionar el mayor, su posición se marca para indicar que ya fue procesada.
+En esta versión no se elimina físicamente el elemento. Después de seleccionar el mayor, su posición se marca para indicar que ya fue procesada. 
+
+**Archivo:** "inplace/ordenamiento_bl.c"
 
 ### Bubble Sort
 Bubble Sort recorre repetidamente el arreglo comparando elementos adyacentes.
@@ -72,9 +76,10 @@ Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
 | Algoritmo | Complejidad temporal | Complejidad espacial |
 |---|:---:|:---:|
-| Versión 1 | `O(...)` | `O(...)` |
-| Versión 2 | `O(...)` | `O(...)` |
-| Versión 3 | `O(...)` | `O(...)` |
+| Selección In-Place | `O(n²)` | `O(1)` |
+| Bubble Sort | `O(n²)` | `O(1)` |
+| Merge Sort | `O(n log n)` | `O(n)` |
+| Permutation Sort | `O(n · n!)` | Depende de la implementación |
 
 ### Justificación
 
