@@ -5,7 +5,7 @@ En esta práctica se estudian algoritmos con diferentes estrategias y complejida
 
 ---
 
-## 1. 📌 Descripción del problema
+## 1. Descripción del problema
 El problema consiste en ordenar de menor a mayor un conjunto de números enteros inicialmente desordenados.
 
 Los datos de entrada se obtienen de un archivo que contiene números desordenados. A partir de estos datos se construyen arreglos de diferentes tamaños para analizar el comportamiento de los algoritmos conforme aumenta el número de elementos n.
@@ -19,7 +19,7 @@ Se implementaron y analizaron los siguientes algoritmos:
 
 ---
 
-## 2. ⚙️ Algoritmos implementados
+## 2. Algoritmos implementados
 
 ### Ordenamiento por selección In-Place
 El algoritmo busca el elemento mayor dentro de la parte no ordenada del arreglo.
@@ -68,7 +68,7 @@ Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta
 
 ---
 
-## 3. 📈 Análisis de complejidad
+## 3. Análisis de complejidad
 
 Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
@@ -79,86 +79,71 @@ Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 | Merge Sort | `O(n log n)` |
 | Permutation Sort | `O(n · n!)` |
 
-### Justificación
-
-Explicar brevemente por qué cada algoritmo presenta dicha complejidad.
-
 #### Selección In-Place — `O(n²)`
+El algoritmo utiliza dos ciclos anidados para ordenar el arreglo. El ciclo externo determina la parte del arreglo que todavía falta por ordenar, mientras que el ciclo interno recorre esa parte para buscar el elemento mayor.
 
-El algoritmo busca el elemento mayor recorriendo la parte no ordenada del arreglo. Después coloca dicho elemento en su posición correspondiente y reduce en uno el espacio pendiente por ordenar.
-
+En la primera iteración, el ciclo interno realiza aproximadamente n−1 comparaciones; en la siguiente, n−2; después n−3, y así sucesivamente:
 El número aproximado de comparaciones es:
-
 ```text
 (n - 1) + (n - 2) + (n - 3) + ... + 1
 ```
 
 Esta suma corresponde a:
-
 ```text
 n(n - 1) / 2
 ```
 
-Por lo tanto, su crecimiento es cuadrático:
-
+En el análisis asintótico se eliminan las constantes y los términos de menor crecimiento, por lo que domina:
 ```text
 O(n²)
 ```
 
 #### Bubble Sort — `O(n²)`
 
-Bubble Sort utiliza recorridos sucesivos sobre el arreglo. En cada pasada se realizan comparaciones entre elementos adyacentes.
+Bubble Sort utiliza dos ciclos anidados para realizar recorridos sucesivos sobre el arreglo. En cada pasada, el ciclo interno compara elementos adyacentes y los intercambia si están en el orden incorrecto.
+
+Al terminar cada pasada, el elemento mayor de la parte no ordenada queda colocado en su posición final. Por esta razón, en cada nueva pasada se puede reducir en uno la cantidad de elementos que se recorren.
 
 El número de comparaciones disminuye progresivamente:
-
 ```text
 (n - 1) + (n - 2) + ... + 1
 ```
 
 Por lo tanto, su complejidad temporal es:
-
 ```text
 O(n²)
 ```
 
 #### Merge Sort — `O(n log n)`
 
-Merge Sort divide repetidamente el arreglo aproximadamente a la mitad, generando:
-
+Merge Sort divide repetidamente el arreglo aproximadamente a la mitad hasta obtener subarreglos de un solo elemento. Como en cada división el tamaño del problema se reduce a la mitad, se generan aproximadamente:
 ```text
 log₂(n)
 ```
-
 niveles de recursión.
 
-En cada nivel, el proceso de combinación `merge` procesa aproximadamente `n` elementos.
-
+Al regresar de la recursión, los subarreglos se mezclan de forma ordenada. En cada nivel de recursión, el proceso de mezcla recorre en total los n elementos del arreglo.
 Por lo tanto:
-
 ```text
 n × log₂(n)
 ```
 
 y su complejidad temporal es:
-
 ```text
 O(n log n)
 ```
 
 #### Permutation Sort — `O(n · n!)`
+Permutation Sort genera diferentes permutaciones de los elementos del arreglo y comprueba cada una hasta encontrar una que esté ordenada.
 
 Para `n` elementos existen:
-
 ```text
 n!
 ```
-
 permutaciones posibles.
 
 Además, comprobar si una permutación está ordenada puede requerir recorrer hasta `n` elementos.
-
 Por lo tanto, el crecimiento considerado para el análisis es:
-
 ```text
 O(n · n!)
 ```
@@ -167,7 +152,7 @@ Este crecimiento factorial provoca que el algoritmo deje de ser práctico inclus
 
 ---
 
-## 4. 🧪 Metodología experimental
+## 4. Metodología experimental
 
 Para analizar el comportamiento de los algoritmos se realizaron experimentos utilizando diferentes tamaños de entrada.
 
@@ -199,7 +184,7 @@ n = [...]
 
 ---
 
-## 5. 📋 Resultados
+## 5. Resultados
 
 Los resultados obtenidos durante los experimentos fueron almacenados en archivos `.csv` para su posterior análisis.
 
