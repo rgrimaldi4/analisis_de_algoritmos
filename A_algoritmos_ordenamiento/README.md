@@ -213,28 +213,24 @@ Los resultados permiten comparar experimentalmente cómo aumenta el costo comput
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
-![Tiempo de ejecución](graficas.png)
+![Gráficas](graficas.png)
+
+
+![Permutation sort](permutation_sort.png)
 
 ---
 
 ## 7. 🔎 Análisis de resultados
 
-Analizar el comportamiento observado durante los experimentos.
+Teóricamente se espera observar diferencias importantes entre los algoritmos conforme aumenta el tamaño de entrada.
 
-Considerar:
+**Selección In-Place** y **Bubble Sort** presentan crecimiento cuadrático `O(n²)`. Por lo tanto, al aumentar `n`, el número de operaciones aumenta considerablemente.
 
-- La forma de crecimiento de la gráfica.
-- El crecimiento del número de pasos.
-- El crecimiento del tiempo de ejecución.
-- Las diferencias entre las implementaciones.
-- La relación entre los resultados experimentales y la complejidad teórica.
+**Merge Sort** presenta una complejidad `O(n log n)`, por lo que se espera que su crecimiento sea menor que el de los algoritmos cuadráticos cuando se utilizan entradas grandes.
 
-Por ejemplo:
+**Permutation Sort** presenta el crecimiento más elevado de los algoritmos estudiados. Debido al número de permutaciones posibles, el incremento del tamaño de entrada provoca un aumento muy rápido del número de operaciones necesarias.
 
-> Los resultados muestran que el número de pasos aumenta de forma cuadrática conforme crece el tamaño de entrada. La gráfica presenta una tendencia consistente con la complejidad teórica `O(n²)`.
-
-> Los tiempos de ejecución presentan pequeñas variaciones entre experimentos debido a factores propios del sistema; sin embargo, la tendencia general coincide con el crecimiento observado en el número de pasos.
-
+Los resultados experimentales deberán contrastarse con estos comportamientos teóricos mediante las gráficas de pasos y tiempos obtenidas.
 ---
 
 ## 8. ✅ Conclusiones
