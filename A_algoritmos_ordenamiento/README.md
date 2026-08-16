@@ -220,7 +220,7 @@ A partir de los resultados experimentales se generaron gráficas para observar e
 
 ---
 
-## 7. 🔎 Análisis de resultados
+## 7. Análisis de resultados
 
 Teóricamente se espera observar diferencias importantes entre los algoritmos conforme aumenta el tamaño de entrada.
 
@@ -241,8 +241,6 @@ Los algoritmos cuadráticos, como Bubble Sort y el ordenamiento por selección I
 Merge Sort utiliza la estrategia de divide y vencerás para reducir el crecimiento a `O(n log n)`, lo que teóricamente permite un mejor comportamiento para conjuntos de datos grandes.
 
 Por otro lado, Permutation Sort presenta un crecimiento factorial y permite observar experimentalmente cómo un algoritmo puede volverse impráctico incluso con incrementos pequeños en el tamaño de entrada.
-
-La comparación entre el análisis teórico, el número de pasos y los tiempos de ejecución permite comprender la importancia de la complejidad algorítmica al seleccionar una solución para un problema.
 
 ---
 
