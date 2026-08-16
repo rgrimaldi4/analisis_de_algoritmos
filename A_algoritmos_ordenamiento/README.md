@@ -17,8 +17,6 @@ Se implementaron y analizaron los siguientes algoritmos:
 - **Merge Sort.
 - **Permutation Sort.
 
-El propósito es comparar el crecimiento del número de pasos y del tiempo de ejecución de cada algoritmo, relacionando los resultados experimentales con su complejidad teórica.
-
 ---
 
 ## 2. ⚙️ Algoritmos implementados
@@ -74,20 +72,98 @@ Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta
 
 Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
-| Algoritmo | Complejidad temporal | Complejidad espacial |
+| Algoritmo | Complejidad temporal |
 |---|:---:|:---:|
-| Selección In-Place | `O(n²)` | `O(1)` |
-| Bubble Sort | `O(n²)` | `O(1)` |
-| Merge Sort | `O(n log n)` | `O(n)` |
-| Permutation Sort | `O(n · n!)` | Depende de la implementación |
+| Selección In-Place | `O(n²)` |
+| Bubble Sort | `O(n²)` |
+| Merge Sort | `O(n log n)` |
+| Permutation Sort | `O(n · n!)` |
 
 ### Justificación
 
 Explicar brevemente por qué cada algoritmo presenta dicha complejidad.
 
-Por ejemplo:
+#### Selección In-Place — `O(n²)`
 
-> El algoritmo contiene dos ciclos anidados que dependen del tamaño de entrada `n`. Por cada iteración del primer ciclo, el segundo realiza aproximadamente `n` operaciones, produciendo un crecimiento cuadrático `O(n²)`.
+El algoritmo busca el elemento mayor recorriendo la parte no ordenada del arreglo. Después coloca dicho elemento en su posición correspondiente y reduce en uno el espacio pendiente por ordenar.
+
+El número aproximado de comparaciones es:
+
+```text
+(n - 1) + (n - 2) + (n - 3) + ... + 1
+```
+
+Esta suma corresponde a:
+
+```text
+n(n - 1) / 2
+```
+
+Por lo tanto, su crecimiento es cuadrático:
+
+```text
+O(n²)
+```
+
+#### Bubble Sort — `O(n²)`
+
+Bubble Sort utiliza recorridos sucesivos sobre el arreglo. En cada pasada se realizan comparaciones entre elementos adyacentes.
+
+El número de comparaciones disminuye progresivamente:
+
+```text
+(n - 1) + (n - 2) + ... + 1
+```
+
+Por lo tanto, su complejidad temporal es:
+
+```text
+O(n²)
+```
+
+#### Merge Sort — `O(n log n)`
+
+Merge Sort divide repetidamente el arreglo aproximadamente a la mitad, generando:
+
+```text
+log₂(n)
+```
+
+niveles de recursión.
+
+En cada nivel, el proceso de combinación `merge` procesa aproximadamente `n` elementos.
+
+Por lo tanto:
+
+```text
+n × log₂(n)
+```
+
+y su complejidad temporal es:
+
+```text
+O(n log n)
+```
+
+#### Permutation Sort — `O(n · n!)`
+
+Para `n` elementos existen:
+
+```text
+n!
+```
+
+permutaciones posibles.
+
+Además, comprobar si una permutación está ordenada puede requerir recorrer hasta `n` elementos.
+
+Por lo tanto, el crecimiento considerado para el análisis es:
+
+```text
+O(n · n!)
+```
+
+Este crecimiento factorial provoca que el algoritmo deje de ser práctico incluso para tamaños de entrada relativamente pequeños.
 
 ---
 
