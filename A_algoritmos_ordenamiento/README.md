@@ -1,4 +1,4 @@
-# 📊 Nombre del problema
+# Algoritmos de Ordenamiento
 El objetivo es implementar y analizar diferentes algoritmos de ordenamiento, comparando su comportamiento teórico con los resultados obtenidos experimentalmente.
 
 En esta práctica se estudian algoritmos con diferentes estrategias y complejidades, con el objetivo de observar cómo aumenta el número de operaciones y el tiempo de ejecución conforme crece el tamaño de entrada.
@@ -209,23 +209,11 @@ Los resultados permiten comparar experimentalmente cómo aumenta el costo comput
 
 ---
 
-## 6. 📊 Gráficas =============
+## 6. Gráficas
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
-### Número de pasos
-
-![Número de pasos](graficas/pasos.png)
-
-### Tiempo de ejecución
-
-![Tiempo de ejecución](graficas/tiempos.png)
-
-### Comparación de algoritmos
-
-Cuando existen diferentes soluciones para el mismo problema, se comparan sus resultados:
-
-![Comparación de algoritmos](graficas/comparacion.png)
+!(graficas.png)
 
 ---
 
