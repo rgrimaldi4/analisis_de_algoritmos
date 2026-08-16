@@ -213,7 +213,7 @@ Los resultados permiten comparar experimentalmente cómo aumenta el costo comput
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
-!(graficas.png)
+![Tiempo de ejecución](graficas.png)
 
 ---
 
