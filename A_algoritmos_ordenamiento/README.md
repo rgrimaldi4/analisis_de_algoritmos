@@ -230,7 +230,6 @@ Teóricamente se espera observar diferencias importantes entre los algoritmos co
 
 **Permutation Sort** presenta el crecimiento más elevado de los algoritmos estudiados. Debido al número de permutaciones posibles, el incremento del tamaño de entrada provoca un aumento muy rápido del número de operaciones necesarias.
 
-Los resultados experimentales deberán contrastarse con estos comportamientos teóricos mediante las gráficas de pasos y tiempos obtenidas.
 ---
 
 ## 8. Conclusiones
