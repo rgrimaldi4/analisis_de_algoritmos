@@ -153,60 +153,63 @@ Este crecimiento factorial provoca que el algoritmo deje de ser práctico inclus
 ---
 
 ## 4. Metodología experimental
+Para estudiar el comportamiento de los algoritmos se utilizaron conjuntos de datos con diferentes tamaños de entrada.
 
-Para analizar el comportamiento de los algoritmos se realizaron experimentos utilizando diferentes tamaños de entrada.
-
-Para cada tamaño de entrada se registraron:
+Para cada tamaño se registraron:
 
 - **Tamaño de entrada (`n`).**
 - **Número de pasos realizados.**
-- **Tiempo de ejecución.**
+- **Tiempo de ejecución en segundos.**
 
-Cada prueba se realizó **30 veces**. Cuando corresponde, se eliminó el tiempo mayor y el tiempo menor, calculando el promedio con las **28 ejecuciones restantes**.
+En los algoritmos donde se realizaron 30 experimentos para cada tamaño de entrada, se descartaron el tiempo máximo y el tiempo mínimo para reducir el efecto de valores extremos.
 
-El tiempo promedio se calculó mediante:
+El promedio se calculó utilizando las 28 mediciones restantes:
 
 ```text
 promedio = (suma_tiempos - tiempo_mayor - tiempo_menor) / 28
 ```
 
-### Definición de paso
+El tiempo de ejecución fue medido en C utilizando:
 
-Para este problema se considera como un **paso**:
+```c
+clock()
+```
 
-> [Indicar qué operación se está contando como paso.]
+y convertido a segundos mediante:
 
-Los tamaños de entrada utilizados fueron:
+```c
+tiempo = (double)(fin_tiempo - inicio_tiempo) / CLOCKS_PER_SEC;
+```
+
+### Tamaños de entrada
+
+Para los algoritmos capaces de trabajar con entradas grandes se utilizaron tamaños crecientes hasta llegar a:
 
 ```text
-n = [...]
+n = 100000
 ```
+
+Permutation Sort requiere tamaños considerablemente menores debido a su rápido crecimiento.
 
 ---
 
 ## 5. Resultados
 
-Los resultados obtenidos durante los experimentos fueron almacenados en archivos `.csv` para su posterior análisis.
+Los resultados experimentales obtenidos se almacenaron en archivos `.csv` para posteriormente calcular promedios y generar las gráficas correspondientes.
 
-Ejemplo de los datos obtenidos:
+Para cada algoritmo se analizaron principalmente las siguientes variables:
 
 | Tamaño `n` | Pasos | Tiempo promedio (s) |
 |---:|---:|---:|
-| 1000 | ... | ... |
-| 2000 | ... | ... |
-| 3000 | ... | ... |
-| 4000 | ... | ... |
+| ... | ... | ... |
+| ... | ... | ... |
 | ... | ... | ... |
 
-Los resultados completos pueden consultarse en la carpeta:
-
-```text
-datos/
-```
+Los resultados permiten comparar experimentalmente cómo aumenta el costo computacional de cada algoritmo conforme aumenta el tamaño de entrada.
 
 ---
 
-## 6. 📊 Gráficas
+## 6. 📊 Gráficas =============
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
