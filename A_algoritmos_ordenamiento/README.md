@@ -1,23 +1,34 @@
 # 📊 Nombre del problema
+El objetivo es implementar y analizar diferentes algoritmos de ordenamiento, comparando su comportamiento teórico con los resultados obtenidos experimentalmente.
 
-Práctica desarrollada para la materia **Análisis de Algoritmos**, cuyo propósito es implementar, experimentar y analizar diferentes algoritmos o estrategias para resolver un problema, comparando su comportamiento teórico con los resultados obtenidos experimentalmente.
+En esta práctica se estudian algoritmos con diferentes estrategias y complejidades, con el objetivo de observar cómo aumenta el número de operaciones y el tiempo de ejecución conforme crece el tamaño de entrada.
 
 ---
 
 ## 1. 📌 Descripción del problema
+El problema consiste en ordenar de menor a mayor un conjunto de números enteros inicialmente desordenados.
 
-Describir brevemente el problema que se desea resolver.
+Los datos de entrada se obtienen de un archivo que contiene números desordenados. A partir de estos datos se construyen arreglos de diferentes tamaños para analizar el comportamiento de los algoritmos conforme aumenta el número de elementos n.
 
-Incluir:
+Se implementaron y analizaron los siguientes algoritmos:
 
-- ¿En qué consiste el problema?
-- ¿Qué datos recibe?
-- ¿Qué resultado debe obtener?
-- ¿Qué versiones o algoritmos se utilizaron para resolverlo?
+Ordenamiento por selección in-place: borrado fisico y borrado logico
+Bubble Sort.
+Merge Sort.
+Permutation Sort.
+
+El propósito es comparar el crecimiento del número de pasos y del tiempo de ejecución de cada algoritmo, relacionando los resultados experimentales con su complejidad teórica.
 
 ---
 
 ## 2. ⚙️ Algoritmos implementados
+El algoritmo busca el elemento mayor dentro de la parte no ordenada del arreglo.
+
+Una vez localizado, intercambia dicho elemento con la última posición disponible. Después del intercambio, el límite de búsqueda se reduce en una posición y el proceso se repite hasta ordenar completamente el arreglo.
+
+Esta implementación trabaja directamente sobre el arreglo original, por lo que no necesita construir un segundo arreglo para almacenar el resultado.
+
+La práctica también contempla variantes de esta estrategia mediante borrado físico y borrado lógico.
 
 ### Algoritmo / Versión 1
 
