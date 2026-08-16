@@ -73,7 +73,7 @@ Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta
 Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
 | Algoritmo | Complejidad temporal |
-|---|:---:|:---:|
+|---|:---:|
 | Selección In-Place | `O(n²)` |
 | Bubble Sort | `O(n²)` |
 | Merge Sort | `O(n log n)` |
