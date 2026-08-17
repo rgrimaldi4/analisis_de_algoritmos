@@ -128,17 +128,6 @@ y se convierte a segundos mediante:
 ```c
 tiempo = (double)(fin_tiempo - inicio_tiempo) / CLOCKS_PER_SEC;
 ```
-
-### Operación fundamental
-
-En esta implementación, la operación fundamental para analizar el algoritmo es la **comparación entre un carácter del patrón y un carácter del texto**:
-
-```c
-cadenaA[j] != cadenaB[i+j]
-```
-
-Aunque esta operación se realiza durante la ejecución, el programa actual no utiliza un contador de pasos; el experimento registra principalmente los tiempos de ejecución.
-
 ---
 
 ## 5. Resultados
