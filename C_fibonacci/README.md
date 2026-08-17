@@ -5,6 +5,8 @@ observar cómo cambia el número de pasos y el tiempo de ejecución.
 En esta práctica se utiliza una versión recursiva y una versión recursiva con memoización, 
 con el objetivo de comparar el comportamiento de ambas soluciones.
 
+---
+
 ## 1. Descripción del problema
 
 La sucesión de Fibonacci es una secuencia de números donde cada valor se obtiene sumando los dos valores anteriores.
