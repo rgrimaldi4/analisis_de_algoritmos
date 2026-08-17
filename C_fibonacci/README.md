@@ -225,3 +225,32 @@ O(n)
 Las gráficas permiten observar la diferencia entre resolver el problema mediante recursión simple y utilizar memoización para evitar cálculos repetidos.
 
 ---
+
+## 8. Conclusiones
+
+La versión recursiva de Fibonacci permite resolver el problema directamente utilizando su definición matemática. Sin embargo, realiza una gran cantidad de cálculos repetidos, provocando que el número de operaciones aumente rápidamente conforme crece `n`.
+
+La versión con memoización utiliza la misma idea recursiva, pero almacena los resultados calculados para reutilizarlos cuando se necesitan nuevamente.
+
+De esta forma, la complejidad temporal se reduce de:
+
+```text
+O(2ⁿ)
+```
+
+a:
+
+```text
+O(n)
+```
+
+La comparación permite observar cómo la memoización puede mejorar el comportamiento de un algoritmo al evitar el cálculo repetido de los mismos subproblemas.
+
+---
+
+### Tecnologías utilizadas
+
+- **Lenguaje:** C
+- **Compilador:** GCC
+- **Medición de tiempo:** `clock()`
+- **Materia:** Análisis de Algoritmos
