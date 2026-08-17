@@ -109,18 +109,13 @@ Para cada tamaño de patrón se realizan **30 ejecuciones**.
 
 En cada ejecución se registra el tiempo requerido para recorrer el texto y realizar las comparaciones.
 
-Posteriormente se descartan:
-
-- El tiempo máximo.
-- El tiempo mínimo.
+Posteriormente se descartan el tiempo máximo y el tiempo mínimo  para reducir el efecto de valores extremos.
 
 El promedio se obtiene utilizando las **28 ejecuciones restantes**:
 
 ```text
 promedio = (suma_tiempos - tiempo_mayor - tiempo_menor) / 28
 ```
-
-Esta operación se encuentra implementada directamente en el programa.
 
 El tiempo se mide utilizando:
 
@@ -148,17 +143,20 @@ Aunque esta operación se realiza durante la ejecución, el programa actual no u
 
 ## 5. Resultados
 
-Los resultados experimentales obtenidos se almacenaron en archivos `.csv` para posteriormente calcular promedios y generar las gráficas correspondientes.
+Para cada tamaño de patrón se obtiene el tiempo promedio de ejecución.
 
-Para cada algoritmo se analizaron principalmente las siguientes variables:
+Los resultados pueden organizarse de la siguiente manera:
 
-| Tamaño `n` | Pasos | Tiempo promedio (s) |
-|---:|---:|---:|
-| ... | ... | ... |
-| ... | ... | ... |
-| ... | ... | ... |
+| Longitud del patrón `m` | Tiempo promedio (s) |
+|---:|---:|
+| 10 | ... |
+| 20 | ... |
+| 30 | ... |
+| 40 | ... |
+| ... | ... |
+| 1000 | ... |
 
-Los resultados permiten comparar experimentalmente cómo aumenta el costo computacional de cada algoritmo conforme aumenta el tamaño de entrada.
+El programa imprime un tiempo promedio por cada tamaño de patrón analizado.
 
 ---
 
@@ -166,34 +164,37 @@ Los resultados permiten comparar experimentalmente cómo aumenta el costo comput
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
-![Gráficas](graficas.png)
-
-
-![Permutation sort](permutation_sort.png)
+![Graficas](graficas/busquedaletras.png)
 
 ---
 
 ## 7. Análisis de resultados
 
-Teóricamente se espera observar diferencias importantes entre los algoritmos conforme aumenta el tamaño de entrada.
+El algoritmo realiza una comparación del patrón en cada posición posible del texto.
 
-**Selección In-Place** y **Bubble Sort** presentan crecimiento cuadrático `O(n²)`. Por lo tanto, al aumentar `n`, el número de operaciones aumenta considerablemente.
+Cuando aumenta la longitud del patrón, el ciclo interno debe realizar una mayor cantidad de comparaciones para cada posición analizada.
 
-**Merge Sort** presenta una complejidad `O(n log n)`, por lo que se espera que su crecimiento sea menor que el de los algoritmos cuadráticos cuando se utilizan entradas grandes.
+Teóricamente, el número de operaciones está determinado por:
 
-**Permutation Sort** presenta el crecimiento más elevado de los algoritmos estudiados. Debido al número de permutaciones posibles, el incremento del tamaño de entrada provoca un aumento muy rápido del número de operaciones necesarias.
+```text
+(n - m + 1) · m
+```
 
+Debido a que durante los experimentos `n = 100000` permanece constante y `m` aumenta desde 10 hasta 1000, se espera que los tiempos presenten una tendencia aproximadamente lineal respecto al crecimiento del patrón.
 ---
 
 ## 8. Conclusiones
+La búsqueda ingenua de patrones utiliza una estrategia sencilla basada en comparar directamente los caracteres del patrón con diferentes posiciones del texto.
 
-La implementación de diferentes algoritmos para resolver un mismo problema permite observar que la estrategia utilizada tiene un efecto directo sobre la eficiencia computacional.
+Su complejidad depende tanto de la longitud del texto `n` como de la longitud del patrón `m`, obteniendo un crecimiento de:
 
-Los algoritmos cuadráticos, como Bubble Sort y el ordenamiento por selección In-Place, pueden funcionar adecuadamente para entradas pequeñas, pero su costo aumenta rápidamente conforme crece `n`.
+```text
+O(n · m)
+```
 
-Merge Sort utiliza la estrategia de divide y vencerás para reducir el crecimiento a `O(n log n)`, lo que teóricamente permite un mejor comportamiento para conjuntos de datos grandes.
+En los experimentos realizados, el tamaño del texto permanece constante y únicamente aumenta la longitud del patrón. Por esta razón, el análisis experimental permite observar principalmente el efecto que tiene `m` sobre el tiempo de ejecución.
 
-Por otro lado, Permutation Sort presenta un crecimiento factorial y permite observar experimentalmente cómo un algoritmo puede volverse impráctico incluso con incrementos pequeños en el tamaño de entrada.
+La práctica permite comprobar cómo el aumento del número de comparaciones influye directamente en el tiempo requerido para realizar una búsqueda.
 
 ---
 
