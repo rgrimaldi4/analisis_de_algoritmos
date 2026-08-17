@@ -235,34 +235,6 @@ A partir de los resultados experimentales se generan gráficas para observar el 
 
 ---
 
-
-
-
----
-
-## 5. Graficas
-
-A partir de los resultados experimentales se generan gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de las cadenas.
-
-### LCSS recursivo: Conteo de Pasos
-
-![Recursivo](recursivo_pasos.png)
-
-### LCSS recursivo: Conteo de Tiempos
-
-![Recursivo](recursivo_tiempo.png)
-
-
-### LCSS con memoización e iterativo: Conteo de Pasos
-
-![Memoización](memo_iterativo_pasos.png)
-
-### LCSS con memoización e iterativo: Conteo de Tiempos
-
-![Memoización](memo_iterativa_tiempos.png)
-
----
-
 ## 6. Análisis de resultados
 
 En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta el tamaño de las cadenas, debido a que algunos subproblemas se calculan varias veces.
