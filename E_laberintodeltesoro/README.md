@@ -1,6 +1,6 @@
-# Longest Common Subsequence (LCSS)
+# Laberinto del Tesoro
 
-El propósito es analizar el comportamiento de diferentes formas de resolver el problema de la subsecuencia común más larga (LCSS) y observar cómo cambia el número de pasos y el tiempo de ejecución.
+El propósito es analizar el comportamiento de diferentes formas de resolver el problema del Laberinto del Tesoro y observar cómo cambia el número de pasos y el tiempo de ejecución.
 
 En esta práctica se utiliza una versión recursiva, una versión recursiva con memoización y una versión iterativa, con el objetivo de comparar el comportamiento de las tres soluciones.
 
@@ -8,100 +8,113 @@ En esta práctica se utiliza una versión recursiva, una versión recursiva con 
 
 ## 1. Descripción del problema
 
-LCSS consiste en encontrar la longitud de la subsecuencia común más larga entre dos cadenas.
+El problema del Laberinto del Tesoro consiste en encontrar el camino que permita acumular la mayor cantidad de tesoro dentro de una matriz.
 
-Una subsecuencia mantiene el orden de los caracteres de la cadena original, pero no es necesario que los caracteres se encuentren de forma consecutiva.
+Cada posición de la matriz contiene una cantidad de tesoro y para llegar a una posición se consideran los caminos que provienen desde arriba o desde la izquierda.
 
-Por ejemplo, para las cadenas:
+Para cada posición se selecciona el camino que permita acumular la mayor cantidad de tesoro.
 
-```text
-A = "ABCDEF"
-B = "ACE"
-```
-
-Una subsecuencia común es:
+El problema consiste en obtener el máximo tesoro acumulado desde la posición inicial:
 
 ```text
-ACE
+(0,0)
 ```
 
-con una longitud de `3`.
+hasta la posición final:
+
+```text
+(n-1,n-1)
+```
+
+Se implementaron las siguientes versiones:
+
+- Laberinto del Tesoro recursivo.
+- Laberinto del Tesoro con memoización.
+- Laberinto del Tesoro iterativo.
+
+El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecución entre las tres versiones conforme aumenta el tamaño de la matriz.
 
 ---
 
 ## 2. Algoritmos implementados
 
-Para resolver el problema se implementaron las siguientes versiones:
+### Laberinto del Tesoro recursivo
 
-- LCSS recursivo.
-- LCSS recursivo con memoización.
-- LCSS iterativo.
+**Archivo:** "laberintotesoro_.c"
 
-El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecución entre las tres versiones conforme aumenta el tamaño de las cadenas.
-
-
-### LCSS recursivo
-
-**Archivo:** "subsequence.c"
-
-La versión recursiva compara los caracteres actuales de ambas cadenas.
-
-Si los caracteres son iguales, se agrega `1` al resultado y se avanza una posición en ambas cadenas.
-
-Si son diferentes, se consideran dos casos:
+La versión recursiva inicia desde la posición final de la matriz y realiza llamadas recursivas considerando dos posibles caminos:
 
 ```text
-Avanzar en la cadena A.
-Avanzar en la cadena B.
+Arriba
+Izquierda
 ```
 
-El algoritmo continúa realizando llamadas recursivas y selecciona el resultado mayor entre ambos casos.
+Para cada posición se calculan ambos caminos y se selecciona el que permita acumular la mayor cantidad de tesoro.
 
-El problema de esta implementación es que algunos subproblemas se calculan repetidamente, provocando un rápido crecimiento en el número de llamadas.
+```c
+int arriba = LT_rec(i - 1, j);
+int izquierda = LT_rec(i, j - 1);
+```
 
-### LCSS con memoización
+Este proceso continúa hasta alcanzar la posición inicial `(0,0)`.
 
-**Archivo:** "subsequeceMemo.c"
+El problema de esta implementación es que algunos caminos y posiciones se calculan repetidamente, provocando que el número de llamadas aumente rápidamente conforme aumenta el tamaño de la matriz.
 
-La esta versión utiliza recursión con **memoización**.
+### Laberinto del Tesoro con memoización
 
-La memoización consiste en almacenar en una matriz los resultados de los subproblemas que ya fueron calculados.
+**Archivo:** "laberintomemo.c"
 
-Antes de realizar nuevamente un cálculo, el algoritmo verifica si el resultado se encuentra almacenado:
+La segunda versión utiliza recursión con **memoización**.
+
+La memoización consiste en almacenar en una matriz los resultados que ya fueron calculados.
+
+Antes de calcular nuevamente una posición, el algoritmo verifica si el resultado se encuentra almacenado:
 
 ```c
 if (dp[i][j] != -1)
     return dp[i][j];
 ```
 
-Si el resultado ya existe, se retorna directamente.
+Si el resultado ya existe, se retorna directamente y no se vuelve a realizar el mismo cálculo.
 
-De esta forma se evita repetir los mismos cálculos realizados uno y otra vez.
+De esta forma se evita repetir los mismos cálculos realizados por la versión recursiva.
 
 Este enfoque corresponde a programación dinámica **Top-Down**.
 
-### LCSS iterativo
+### Laberinto del Tesoro iterativo
 
-**Archivo:** "subsequenceiterativa.c"
+**Archivo:** "laberintoiterativa.c"
 
 La tercera versión utiliza programación dinámica de forma iterativa.
 
-Se utiliza una matriz donde cada posición almacena el resultado obtenido para una parte de las dos cadenas.
+Se utiliza una matriz `dp` donde cada posición almacena la cantidad máxima de tesoro que puede acumularse hasta esa posición.
 
-El algoritmo recorre la matriz mediante dos ciclos anidados:
+El algoritmo recorre la matriz utilizando dos ciclos anidados.
+
+Para cada posición se obtiene el valor acumulado desde arriba y desde la izquierda:
 
 ```c
-for (int i = 1; i <= n; i++) {
-    for (int j = 1; j <= m; j++) {
+int arriba = dp[i - 1][j];
+int izquierda = dp[i][j - 1];
 ```
 
-Si los caracteres coinciden, se utiliza el valor de la posición diagonal anterior más `1`.
-
-Si son diferentes, se selecciona el mayor resultado previamente calculado.
+Posteriormente se selecciona el mayor y se suma el tesoro de la posición actual.
 
 Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 3. Análisis de complejidad
 
