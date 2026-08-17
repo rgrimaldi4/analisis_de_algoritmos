@@ -180,3 +180,48 @@ pasos++;
 Por lo tanto, el número de pasos permite observar la cantidad de llamadas realizadas por cada versión.
 
 ---
+
+## 5. Graficas
+A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el valor de `n`.
+
+### Fibonacci recursivo: Conteo de Pasos
+
+![Recursivo](recursivo_pasos.png)
+
+### Fibonacci con memoización: Conteo de Pasos
+
+![Memoización](meno_pasos.png)
+
+### Fibonacci recursivo: Conteo de Tiempo
+
+![Memoización](recursivo_tiempos.png)
+
+### Fibonacci con memoizacion: Conteo de Tiempo
+
+![Memoización](meno_tiempos.png)
+
+---
+
+## 6. Análisis de resultados
+
+En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta `n`, debido a que los mismos valores de Fibonacci se calculan varias veces.
+
+Este comportamiento produce un crecimiento exponencial, consistente con la complejidad:
+
+```text
+O(2ⁿ)
+```
+
+En la versión con memoización, los resultados calculados se almacenan y se reutilizan cuando son necesarios nuevamente.
+
+Esto evita repetir cálculos y reduce considerablemente el número de operaciones realizadas.
+
+Por esta razón, se espera observar un crecimiento mucho menor en comparación con la versión recursiva, consistente con:
+
+```text
+O(n)
+```
+
+Las gráficas permiten observar la diferencia entre resolver el problema mediante recursión simple y utilizar memoización para evitar cálculos repetidos.
+
+---
