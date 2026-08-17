@@ -237,49 +237,39 @@ A partir de los resultados experimentales se generan gráficas para observar el 
 
 ## 6. Análisis de resultados
 
-En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta el tamaño de las cadenas, debido a que algunos subproblemas se calculan varias veces.
+En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta el tamaño de la matriz, debido a que algunas posiciones se calculan varias veces.
 
 Este comportamiento produce un crecimiento exponencial, consistente con:
 
 ```text
-O(2^(n+m))
+O(2^(n+n))
 ```
 
-En la versión con memoización, los resultados calculados se almacenan y se reutilizan cuando son necesarios nuevamente.
+En la versión con memoización, los resultados calculados para cada posición se almacenan y se reutilizan cuando son necesarios nuevamente.
 
 Esto evita repetir cálculos y reduce el crecimiento a:
 
 ```text
-O(n · m)
+O(n²)
 ```
 
 La versión iterativa también presenta una complejidad:
 
 ```text
-O(n · m)
+O(n²)
 ```
 
-debido a que utiliza dos ciclos anidados para recorrer las combinaciones de posiciones de ambas cadenas.
+debido a que utiliza dos ciclos anidados para recorrer las posiciones de la matriz.
 
-Las gráficas permiten observar la diferencia entre resolver LCSS mediante recursión simple y utilizar programación dinámica mediante memoización o tabulación.
+La versión recursiva del Laberinto del Tesoro permite encontrar el máximo tesoro acumulado considerando los posibles caminos desde arriba y desde la izquierda. Sin embargo, realiza cálculos repetidos, provocando que el número de operaciones aumente rápidamente conforme aumenta el tamaño de la matriz.
 
----
+La versión con memoización mantiene el enfoque recursivo, pero almacena los resultados calculados para reutilizarlos cuando se necesitan nuevamente.
 
-## 7. Conclusiones
+La versión iterativa utiliza una matriz para construir los resultados desde la posición inicial hasta obtener el máximo tesoro acumulado en la posición final.
 
-La versión recursiva de LCSS permite resolver el problema utilizando llamadas recursivas. Sin embargo, algunos subproblemas se calculan repetidamente, provocando que el número de operaciones aumente rápidamente conforme aumenta el tamaño de las cadenas.
+De esta forma, las versiones con programación dinámica reducen considerablemente el número de cálculos realizados en comparación con la versión recursiva.
 
-La versión con memoización mantiene el enfoque recursivo, pero almacena los resultados calculados para evitar repetir los mismos subproblemas.
-
-La versión iterativa utiliza una matriz para construir los resultados desde los casos más pequeños hasta obtener la solución final.
-
-De esta forma, las versiones con programación dinámica reducen la complejidad temporal de un crecimiento exponencial a:
-
-```text
-O(n · m)
-```
-
-La comparación permite observar que la memoización e iterativa mejoran el comportamiento del algoritmo al evitar el cálculo repetido de los mismos subproblemas.
+La comparación permite observar cómo la memoización y la tabulación mejoran el comportamiento del algoritmo al evitar el cálculo repetido de los mismos subproblemas.
 
 ---
 
