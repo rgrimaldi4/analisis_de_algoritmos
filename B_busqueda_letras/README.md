@@ -84,65 +84,65 @@ La complejidad temporal puede expresarse como:
 ```text
 O(n · m)
 ```
-
-### Comportamiento del experimento
-
-En esta práctica:
-
-```text
-n = 100000
-```
-
-permanece constante y solamente aumenta `m`.
-
-Por lo tanto:
-
-```text
-T(m) ≈ (100000 - m + 1) · m
-```
-
-Para los valores utilizados, de `m = 10` hasta `m = 1000`, se espera observar un crecimiento aproximadamente **lineal respecto al tamaño del patrón**, debido a que el tamaño del texto permanece constante.
-
 ---
 
 ## 4. Metodología experimental
-Para estudiar el comportamiento de los algoritmos se utilizaron conjuntos de datos con diferentes tamaños de entrada.
+El texto utilizado para realizar las búsquedas tiene una longitud de:
 
-Para cada tamaño se registraron:
+```text
+100000 caracteres
+```
 
-- **Tamaño de entrada (`n`).**
-- **Número de pasos realizados.**
-- **Tiempo de ejecución en segundos.**
+El tamaño del patrón comienza en:
 
-En los algoritmos donde se realizaron 30 experimentos para cada tamaño de entrada, se descartaron el tiempo máximo y el tiempo mínimo para reducir el efecto de valores extremos.
+```text
+10 caracteres
+```
 
-El promedio se calculó utilizando las 28 mediciones restantes:
+y aumenta de 10 en 10 hasta alcanzar:
+
+```text
+1000 caracteres
+```
+
+Para cada tamaño de patrón se realizan **30 ejecuciones**.
+
+En cada ejecución se registra el tiempo requerido para recorrer el texto y realizar las comparaciones.
+
+Posteriormente se descartan:
+
+- El tiempo máximo.
+- El tiempo mínimo.
+
+El promedio se obtiene utilizando las **28 ejecuciones restantes**:
 
 ```text
 promedio = (suma_tiempos - tiempo_mayor - tiempo_menor) / 28
 ```
 
-El tiempo de ejecución fue medido en C utilizando:
+Esta operación se encuentra implementada directamente en el programa.
+
+El tiempo se mide utilizando:
 
 ```c
 clock()
 ```
 
-y convertido a segundos mediante:
+y se convierte a segundos mediante:
 
 ```c
 tiempo = (double)(fin_tiempo - inicio_tiempo) / CLOCKS_PER_SEC;
 ```
 
-### Tamaños de entrada
+### Operación fundamental
 
-Para los algoritmos capaces de trabajar con entradas grandes se utilizaron tamaños crecientes hasta llegar a:
+En esta implementación, la operación fundamental para analizar el algoritmo es la **comparación entre un carácter del patrón y un carácter del texto**:
 
-```text
-n = 100000
+```c
+cadenaA[j] != cadenaB[i+j]
 ```
 
-Permutation Sort requiere tamaños considerablemente menores debido a su rápido crecimiento.
+Aunque esta operación se realiza durante la ejecución, el programa actual no utiliza un contador de pasos; el experimento registra principalmente los tiempos de ejecución.
 
 ---
 
