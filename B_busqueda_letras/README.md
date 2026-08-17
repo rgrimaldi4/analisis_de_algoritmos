@@ -163,13 +163,14 @@ El algoritmo realiza una comparación del patrón en cada posición posible del 
 
 Cuando aumenta la longitud del patrón, el ciclo interno debe realizar una mayor cantidad de comparaciones para cada posición analizada.
 
-Teóricamente, el número de operaciones está determinado por:
+El número de operaciones está determinado por:
 
 ```text
 (n - m + 1) · m
 ```
 
 Debido a que durante los experimentos `n = 100000` permanece constante y `m` aumenta desde 10 hasta 1000, se espera que los tiempos presenten una tendencia aproximadamente lineal respecto al crecimiento del patrón.
+
 ---
 
 ## 8. Conclusiones
