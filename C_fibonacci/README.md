@@ -90,10 +90,10 @@ De esta forma se evita repetir los mismos cálculos realizados por la versión r
 
 ## 3. Análisis de complejidad
 
-| Algoritmo | Complejidad temporal | Complejidad espacial |
-|---|:---:|:---:|
-| Fibonacci recursivo | `O(2ⁿ)` | `O(n)` |
-| Fibonacci con memoización | `O(n)` | `O(n)` |
+| Algoritmo | Complejidad temporal |
+|---|:---:|
+| Fibonacci recursivo | `O(2ⁿ)` |
+| Fibonacci con memoización | `O(n)` |
 
 ### Fibonacci recursivo
 
@@ -127,12 +127,6 @@ F(0), F(1), F(2), ..., F(n)
 se calculan y se almacenan para evitar volver a realizar el mismo cálculo.
 
 Por esta razón, el crecimiento se reduce a:
-
-```text
-O(n)
-```
-
-La memoria utilizada para almacenar los resultados también aumenta conforme crece `n`, por lo que se considera:
 
 ```text
 O(n)
