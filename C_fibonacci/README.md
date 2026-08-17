@@ -133,3 +133,50 @@ O(n)
 ```
 
 ---
+
+## 4. Metodología experimental
+
+Para analizar el comportamiento de ambas versiones se utilizan diferentes valores de `n`.
+
+Los valores comienzan en:
+
+```text
+n = 10
+```
+
+y aumentan de 2 en 2 hasta:
+
+```text
+n = 100
+```
+
+Para cada valor de `n` se registran:
+
+- Número de pasos.
+- Tiempo de ejecución.
+
+El tiempo se mide utilizando:
+
+```c
+clock()
+```
+
+y se convierte a segundos mediante:
+
+```c
+tiempo = (double)(tiempo_fin - tiempo_inicio) / CLOCKS_PER_SEC;
+```
+
+Los pasos:
+
+Para ambas versiones se considera como un **paso** cada vez que se realiza una llamada a la función `fibo()`.
+
+El contador se incrementa mediante:
+
+```c
+pasos++;
+```
+
+Por lo tanto, el número de pasos permite observar la cantidad de llamadas realizadas por cada versión.
+
+---
