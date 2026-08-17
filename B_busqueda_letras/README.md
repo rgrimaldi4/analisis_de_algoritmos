@@ -56,86 +56,52 @@ El ciclo externo recorre todas las posiciones donde puede comenzar el patrón y 
 ---
 
 ## 3. Análisis de complejidad
+Sea:
 
-Se analiza la complejidad temporal de cada una de las soluciones implementadas.
-
-| Algoritmo | Complejidad temporal |
-|---|:---:|
-| Selección In-Place | `O(n²)` |
-| Bubble Sort | `O(n²)` |
-| Merge Sort | `O(n log n)` |
-| Permutation Sort | `O(n · n!)` |
-
-#### Selección In-Place — `O(n²)`
-El algoritmo utiliza dos ciclos anidados para ordenar el arreglo. El ciclo externo determina la parte del arreglo que todavía falta por ordenar, mientras que el ciclo interno recorre esa parte para buscar el elemento mayor.
-
-En la primera iteración, el ciclo interno realiza aproximadamente n−1 comparaciones; en la siguiente, n−2; después n−3, y así sucesivamente:
-El número aproximado de comparaciones es:
 ```text
-(n - 1) + (n - 2) + (n - 3) + ... + 1
+n = longitud del texto
+m = longitud del patrón
 ```
 
-Esta suma corresponde a:
+El patrón puede comenzar aproximadamente en:
+
 ```text
-n(n - 1) / 2
+n - m + 1
 ```
 
-En el análisis asintótico se eliminan las constantes y los términos de menor crecimiento, por lo que domina:
+posiciones diferentes.
+
+Para cada una de esas posiciones se comparan `m` caracteres.
+
+Por lo tanto, el número de comparaciones es aproximadamente:
+
 ```text
-O(n²)
+(n - m + 1) · m
 ```
 
-#### Bubble Sort — `O(n²)`
+La complejidad temporal puede expresarse como:
 
-Bubble Sort utiliza dos ciclos anidados para realizar recorridos sucesivos sobre el arreglo. En cada pasada, el ciclo interno compara elementos adyacentes y los intercambia si están en el orden incorrecto.
-
-Al terminar cada pasada, el elemento mayor de la parte no ordenada queda colocado en su posición final. Por esta razón, en cada nueva pasada se puede reducir en uno la cantidad de elementos que se recorren.
-
-El número de comparaciones disminuye progresivamente:
 ```text
-(n - 1) + (n - 2) + ... + 1
+O(n · m)
 ```
 
-Por lo tanto, su complejidad temporal es:
+### Comportamiento del experimento
+
+En esta práctica:
+
 ```text
-O(n²)
+n = 100000
 ```
 
-#### Merge Sort — `O(n log n)`
+permanece constante y solamente aumenta `m`.
 
-Merge Sort divide repetidamente el arreglo aproximadamente a la mitad hasta obtener subarreglos de un solo elemento. Como en cada división el tamaño del problema se reduce a la mitad, se generan aproximadamente:
-```text
-log₂(n)
-```
-niveles de recursión.
-
-Al regresar de la recursión, los subarreglos se mezclan de forma ordenada. En cada nivel de recursión, el proceso de mezcla recorre en total los n elementos del arreglo.
 Por lo tanto:
+
 ```text
-n × log₂(n)
+T(m) ≈ (100000 - m + 1) · m
 ```
 
-y su complejidad temporal es:
-```text
-O(n log n)
-```
-
-#### Permutation Sort — `O(n · n!)`
-Permutation Sort genera diferentes permutaciones de los elementos del arreglo y comprueba cada una hasta encontrar una que esté ordenada.
-
-Para `n` elementos existen:
-```text
-n!
-```
-permutaciones posibles.
-
-Además, comprobar si una permutación está ordenada puede requerir recorrer hasta `n` elementos.
-Por lo tanto, el crecimiento considerado para el análisis es:
-```text
-O(n · n!)
-```
-
-Este crecimiento factorial provoca que el algoritmo deje de ser práctico incluso para tamaños de entrada relativamente pequeños.
+Para los valores utilizados, de `m = 10` hasta `m = 1000`, se espera observar un crecimiento aproximadamente **lineal respecto al tamaño del patrón**, debido a que el tamaño del texto permanece constante.
 
 ---
 
