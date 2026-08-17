@@ -170,21 +170,27 @@ Por lo tanto, se recorren las `n²` posiciones de la matriz y la complejidad tem
 O(n²)
 ```
 
-
-
-
-
-
-
+---
 
 
 ## 4. Metodología experimental
 
-Para analizar el comportamiento de las versiones se utilizan diferentes tamaños de cadenas.
+Para analizar el comportamiento de las tres versiones se utilizan diferentes tamaños de matrices.
 
-Para cada tamaño se registran:
+Los valores de la matriz se generan de forma aleatoria utilizando valores entre `1` y `20`.
 
-- Número de pasos.
+Se utiliza una semilla fija:
+
+```c
+srand(1);
+```
+
+para mantener los mismos valores durante los experimentos.
+
+Para cada tamaño de matriz se registran:
+
+- Máximo tesoro acumulado.
+- Número de pasos o llamadas.
 - Tiempo de ejecución.
 
 El tiempo se mide utilizando:
@@ -199,17 +205,38 @@ y se convierte a segundos mediante:
 tiempo = (double)(tiempo_fin - tiempo_inicio) / CLOCKS_PER_SEC;
 ```
 
-En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función `LCSS()`.
+En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función correspondiente.
 
-El contador se incrementa mediante:
+En la versión iterativa se considera como un **paso** cada posición de la matriz procesada por los ciclos.
 
-```c
-pasos++;
-```
+De esta forma, los resultados permiten observar el crecimiento de cada versión conforme aumenta el tamaño de la matriz.
 
-En la versión iterativa se considera como un **paso** cada iteración realizada por los dos ciclos que recorren la matriz.
+---
 
-De esta forma, los resultados permiten comparar el crecimiento de las diferentes versiones.
+## 5. Graficas
+
+A partir de los resultados experimentales se generan gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de la matriz.
+
+### Laberinto recursivo: Conteo de Pasos
+
+![Recursivo](recursivo_pasos.png)
+
+### Laberinto con memoización e iterativo: Conteo de Pasos
+
+![MemoRecursivo](memo_iterativ_pasos.png)
+
+### Laberinto recursivo: Conteo de Tiempos
+
+![Recursivo](recursivo_tiempos.png)
+
+### Laberinto con memoización e iterativo: Conteo de Tiempos
+
+![Memoización](memo_iterativo_tiempos.png)
+
+---
+
+
+
 
 ---
 
