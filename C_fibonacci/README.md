@@ -190,7 +190,7 @@ A partir de los resultados experimentales se generaron gráficas para observar e
 
 ### Fibonacci con memoización: Conteo de Pasos
 
-![Memoización](meno_pasos.png)
+![Memoización](memo_pasos.png)
 
 ### Fibonacci recursivo: Conteo de Tiempo
 
@@ -198,7 +198,7 @@ A partir de los resultados experimentales se generaron gráficas para observar e
 
 ### Fibonacci con memoizacion: Conteo de Tiempo
 
-![Memoización](meno_tiempos.png)
+![Memoización](memo_tiempos.png)
 
 ---
 
