@@ -63,7 +63,7 @@ El problema de esta implementación es que algunos subproblemas se calculan repe
 
 **Archivo:** "subsequeceMemo.c"
 
-La segunda versión utiliza recursión con **memoización**.
+La esta versión utiliza recursión con **memoización**.
 
 La memoización consiste en almacenar en una matriz los resultados de los subproblemas que ya fueron calculados.
 
@@ -76,7 +76,7 @@ if (dp[i][j] != -1)
 
 Si el resultado ya existe, se retorna directamente.
 
-De esta forma se evita repetir los mismos cálculos realizados por la versión recursiva.
+De esta forma se evita repetir los mismos cálculos realizados uno y otra vez.
 
 Este enfoque corresponde a programación dinámica **Top-Down**.
 
@@ -194,12 +194,12 @@ A partir de los resultados experimentales se generan gráficas para observar el 
 
 ### LCSS recursivo: Conteo de Tiempos
 
-![Recursivo](recursivo_tiempos.png)
+![Recursivo](recursivo_tiempo.png)
 
 
 ### LCSS con memoización y iterativo: Conteo de Pasos
 
-![Memoización](memo_iterativa_pasos.png)
+![Memoización](memo_iterativo_pasos.png)
 
 ### LCSS con memoización y iterativo: Conteo de Tiempos
 
@@ -251,7 +251,7 @@ De esta forma, las versiones con programación dinámica reducen la complejidad 
 O(n · m)
 ```
 
-La comparación permite observar cómo la memoización y la tabulación mejoran el comportamiento del algoritmo al evitar el cálculo repetido de los mismos subproblemas.
+La comparación permite observar que la memoización e iterativa mejoran el comportamiento del algoritmo al evitar el cálculo repetido de los mismos subproblemas.
 
 ---
 
