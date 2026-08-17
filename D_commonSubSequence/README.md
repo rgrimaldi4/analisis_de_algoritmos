@@ -103,6 +103,87 @@ Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 
 ---
 
+## 3. Análisis de complejidad
+
+| Algoritmo | Complejidad temporal |
+|---|:---:|
+| LCSS recursivo | `O(2^(n+m))` |
+| LCSS con memoización | `O(n · m)` |
+| LCSS iterativo | `O(n · m)` |
+
+### LCSS recursivo
+
+Cuando los caracteres no coinciden, el algoritmo realiza dos llamadas recursivas.
+
+Estas llamadas pueden generar nuevas llamadas hasta alcanzar el final de alguna de las cadenas.
+
+Además, algunos subproblemas se calculan repetidamente.
+
+Por lo tanto, se considera una complejidad temporal de:
+
+```text
+O(2^(n+m))
+```
+
+### LCSS con memoización
+
+La versión con memoización almacena los resultados correspondientes a cada combinación de posiciones `(i,j)`.
+
+Como existen hasta `n · m` combinaciones posibles y cada una se calcula una sola vez, la complejidad se reduce a:
+
+```text
+O(n · m)
+```
+
+### LCSS iterativo
+
+La versión iterativa utiliza dos ciclos anidados.
+
+El primer ciclo recorre los `n` caracteres de una cadena y el segundo los `m` caracteres de la otra.
+
+Por lo tanto, se realizan aproximadamente `n · m` operaciones:
+
+```text
+O(n · m)
+```
+
+---
+
+## 4. Metodología experimental
+
+Para analizar el comportamiento de las versiones se utilizan diferentes tamaños de cadenas.
+
+Para cada tamaño se registran:
+
+- Número de pasos.
+- Tiempo de ejecución.
+
+El tiempo se mide utilizando:
+
+```c
+clock()
+```
+
+y se convierte a segundos mediante:
+
+```c
+tiempo = (double)(tiempo_fin - tiempo_inicio) / CLOCKS_PER_SEC;
+```
+
+En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función `LCSS()`.
+
+El contador se incrementa mediante:
+
+```c
+pasos++;
+```
+
+En la versión iterativa se considera como un **paso** cada iteración realizada por los dos ciclos que recorren la matriz.
+
+De esta forma, los resultados permiten comparar el crecimiento de las diferentes versiones.
+
+---
+
 ### Fibonacci recursivo
 
 **Archivo:** "fibo.c"
