@@ -87,7 +87,7 @@ Este enfoque corresponde a programación dinámica **Top-Down**.
 
 La tercera versión utiliza programación dinámica de forma iterativa.
 
-Se utiliza una matriz `dp` donde cada posición almacena la cantidad máxima de tesoro que puede acumularse hasta esa posición.
+Se utiliza una matriz, donde cada posición almacena la cantidad máxima de tesoro que puede acumularse hasta esa posición.
 
 El algoritmo recorre la matriz utilizando dos ciclos anidados.
 
@@ -104,63 +104,79 @@ Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 
 ---
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## 3. Análisis de complejidad
 
 | Algoritmo | Complejidad temporal |
 |---|:---:|
-| LCSS recursivo | `O(2^(n+m))` |
-| LCSS con memoización | `O(n · m)` |
-| LCSS iterativo | `O(n · m)` |
+| Laberinto recursivo | `O(2^(n+n))` |
+| Laberinto con memoización | `O(n²)` |
+| Laberinto iterativo | `O(n²)` |
 
-### LCSS recursivo
+### Laberinto del Tesoro recursivo
 
-Cuando los caracteres no coinciden, el algoritmo realiza dos llamadas recursivas.
-
-Estas llamadas pueden generar nuevas llamadas hasta alcanzar el final de alguna de las cadenas.
-
-Además, algunos subproblemas se calculan repetidamente.
-
-Por lo tanto, se considera una complejidad temporal de:
+Para una posición de la matriz, el algoritmo puede realizar dos llamadas recursivas:
 
 ```text
-O(2^(n+m))
+Arriba
+Izquierda
 ```
 
-### LCSS con memoización
+Cada una de estas llamadas puede generar nuevas llamadas hasta alcanzar los límites de la matriz.
 
-La versión con memoización almacena los resultados correspondientes a cada combinación de posiciones `(i,j)`.
+Además, algunas posiciones se calculan repetidamente.
 
-Como existen hasta `n · m` combinaciones posibles y cada una se calcula una sola vez, la complejidad se reduce a:
+Por lo tanto, para una matriz de `n × n`, se considera una complejidad temporal de:
 
 ```text
-O(n · m)
+O(2^(n+n))
 ```
 
-### LCSS iterativo
+Este crecimiento provoca que la versión recursiva deje de ser práctica para matrices grandes.
 
-La versión iterativa utiliza dos ciclos anidados.
+### Laberinto del Tesoro con memoización
 
-El primer ciclo recorre los `n` caracteres de una cadena y el segundo los `m` caracteres de la otra.
+La versión con memoización almacena el resultado correspondiente a cada posición `(i,j)`.
 
-Por lo tanto, se realizan aproximadamente `n · m` operaciones:
+En una matriz de tamaño:
 
 ```text
-O(n · m)
+n × n
 ```
 
----
+existen `n²` posiciones posibles.
+
+Cada posición se calcula y se almacena para evitar volver a realizar el mismo cálculo.
+
+Por esta razón, el crecimiento se reduce a:
+
+```text
+O(n²)
+```
+
+### Laberinto del Tesoro iterativo
+
+La versión iterativa utiliza dos ciclos anidados para recorrer la matriz:
+
+```c
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {
+```
+
+Ambos ciclos recorren hasta `n`.
+
+Por lo tanto, se recorren las `n²` posiciones de la matriz y la complejidad temporal es:
+
+```text
+O(n²)
+```
+
+
+
+
+
+
+
+
 
 ## 4. Metodología experimental
 
