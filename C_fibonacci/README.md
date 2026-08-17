@@ -40,6 +40,8 @@ El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecuci�
 
 ### Fibonacci recursivo
 
+**Archivo:** "fibo.c"
+
 La versión recursiva calcula `F(n)` realizando llamadas a:
 
 ```text
@@ -60,7 +62,10 @@ El problema de esta implementación es que algunos valores de Fibonacci se calcu
 
 Por ejemplo, para calcular `F(5)` se necesita calcular `F(3)` más de una vez. Esta repetición aumenta rápidamente conforme aumenta `n`.
 
+
 ### Fibonacci con memoización
+
+**Archivo:** "fibomemo.c"
 
 La segunda versión utiliza recursión con **memoización**.
 
