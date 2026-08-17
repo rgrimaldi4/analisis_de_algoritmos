@@ -197,11 +197,11 @@ A partir de los resultados experimentales se generan gráficas para observar el 
 ![Recursivo](recursivo_tiempo.png)
 
 
-### LCSS con memoización y iterativo: Conteo de Pasos
+### LCSS con memoización e iterativo: Conteo de Pasos
 
 ![Memoización](memo_iterativo_pasos.png)
 
-### LCSS con memoización y iterativo: Conteo de Tiempos
+### LCSS con memoización e iterativo: Conteo de Tiempos
 
 ![Memoización](memo_iterativa_tiempos.png)
 
