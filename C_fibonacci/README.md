@@ -87,3 +87,55 @@ y posteriormente se almacena para poder utilizarlo nuevamente.
 De esta forma se evita repetir los mismos cálculos realizados por la versión recursiva.
 
 ---
+
+## 3. Análisis de complejidad
+
+| Algoritmo | Complejidad temporal | Complejidad espacial |
+|---|:---:|:---:|
+| Fibonacci recursivo | `O(2ⁿ)` | `O(n)` |
+| Fibonacci con memoización | `O(n)` | `O(n)` |
+
+### Fibonacci recursivo
+
+Para calcular `F(n)`, el algoritmo realiza dos llamadas recursivas:
+
+```text
+F(n-1)
+F(n-2)
+```
+
+Cada una de estas llamadas puede generar nuevas llamadas recursivas hasta alcanzar los casos base.
+
+Debido a que varios valores se calculan repetidamente, el número de llamadas aumenta de forma exponencial conforme aumenta `n`.
+
+Por lo tanto, para este análisis se considera una complejidad temporal de:
+
+```text
+O(2ⁿ)
+```
+
+### Fibonacci con memoización
+
+La versión con memoización almacena cada resultado calculado.
+
+Los valores:
+
+```text
+F(0), F(1), F(2), ..., F(n)
+```
+
+se calculan y se almacenan para evitar volver a realizar el mismo cálculo.
+
+Por esta razón, el crecimiento se reduce a:
+
+```text
+O(n)
+```
+
+La memoria utilizada para almacenar los resultados también aumenta conforme crece `n`, por lo que se considera:
+
+```text
+O(n)
+```
+
+---
