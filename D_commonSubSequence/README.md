@@ -8,7 +8,7 @@ En esta práctica se utiliza una versión recursiva, una versión recursiva con 
 
 ## 1. Descripción del problema
 
-Longest Common Subsequence (LCSS) consiste en encontrar la longitud de la subsecuencia común más larga entre dos cadenas.
+LCSS consiste en encontrar la longitud de la subsecuencia común más larga entre dos cadenas.
 
 Una subsecuencia mantiene el orden de los caracteres de la cadena original, pero no es necesario que los caracteres se encuentren de forma consecutiva.
 
@@ -65,7 +65,7 @@ El problema de esta implementación es que algunos subproblemas se calculan repe
 
 La segunda versión utiliza recursión con **memoización**.
 
-La memoización consiste en almacenar en una matriz `dp` los resultados de los subproblemas que ya fueron calculados.
+La memoización consiste en almacenar en una matriz los resultados de los subproblemas que ya fueron calculados.
 
 Antes de realizar nuevamente un cálculo, el algoritmo verifica si el resultado se encuentra almacenado:
 
@@ -86,7 +86,7 @@ Este enfoque corresponde a programación dinámica **Top-Down**.
 
 La tercera versión utiliza programación dinámica de forma iterativa.
 
-Se utiliza una matriz `dp` donde cada posición almacena el resultado obtenido para una parte de las dos cadenas.
+Se utiliza una matriz donde cada posición almacena el resultado obtenido para una parte de las dos cadenas.
 
 El algoritmo recorre la matriz mediante dos ciclos anidados:
 
