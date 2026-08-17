@@ -58,7 +58,7 @@ int main(){
         }
 
         double promedio = (suma-(mayor+menor)) / 28;
-        printf("%f\n", promedio);
+        printf("%f, %d\n", promedio, contador);
         
         contador+=10;
 

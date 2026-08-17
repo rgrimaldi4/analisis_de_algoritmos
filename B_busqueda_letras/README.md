@@ -153,7 +153,7 @@ El programa imprime un tiempo promedio por cada tamaño de patrón analizado.
 
 A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
 
-![Graficas](graficas/busquedaletras.png)
+![Graficas](graficastr.png)
 
 ---
 
@@ -183,8 +183,6 @@ O(n · m)
 ```
 
 En los experimentos realizados, el tamaño del texto permanece constante y únicamente aumenta la longitud del patrón. Por esta razón, el análisis experimental permite observar principalmente el efecto que tiene `m` sobre el tiempo de ejecución.
-
-La práctica permite comprobar cómo el aumento del número de comparaciones influye directamente en el tiempo requerido para realizar una búsqueda.
 
 ---
 
