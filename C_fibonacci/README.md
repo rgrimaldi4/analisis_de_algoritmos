@@ -35,3 +35,55 @@ Se implementaron las siguientes versiones:
 El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecución entre ambas versiones conforme aumenta `n`.
 
 ---
+
+## 2. Algoritmos implementados
+
+### Fibonacci recursivo
+
+La versión recursiva calcula `F(n)` realizando llamadas a:
+
+```text
+F(n-1)
+F(n-2)
+```
+
+Las llamadas continúan hasta alcanzar los casos base:
+
+```text
+F(0) = 0
+F(1) = 1
+```
+
+Al regresar de las llamadas recursivas, los resultados se suman hasta obtener el valor solicitado.
+
+El problema de esta implementación es que algunos valores de Fibonacci se calculan repetidamente.
+
+Por ejemplo, para calcular `F(5)` se necesita calcular `F(3)` más de una vez. Esta repetición aumenta rápidamente conforme aumenta `n`.
+
+### Fibonacci con memoización
+
+La segunda versión utiliza recursión con **memoización**.
+
+La memoización consiste en almacenar los valores de Fibonacci que ya fueron calculados.
+
+Antes de calcular `F(n)`, el algoritmo verifica si el resultado se encuentra almacenado:
+
+```c
+if(F[n] >= 0){
+    return F[n];
+}
+```
+
+Si el valor ya existe, se retorna directamente y no se vuelve a realizar el cálculo.
+
+Si todavía no ha sido calculado, se obtiene mediante:
+
+```text
+F(n) = F(n-1) + F(n-2)
+```
+
+y posteriormente se almacena para poder utilizarlo nuevamente.
+
+De esta forma se evita repetir los mismos cálculos realizados por la versión recursiva.
+
+---
