@@ -47,7 +47,7 @@ Al no almacenar resultados previamente calculados, se vuelven a resolver subprob
 
 ---
 
-## Enfoque de fuerza bruta iterativo
+### Enfoque de fuerza bruta iterativo
 
 Esta versión genera y analiza todas las combinaciones posibles de objetos.
 
@@ -60,10 +60,9 @@ Por ejemplo, con 3 objetos `A`, `B`, `C` existen `2^3=8` combinaciones:
 
 El algoritmo recorre cada combinación y calcula su peso y valor total. Si el peso no supera la capacidad de la mochila, compara su valor con el mejor encontrado hasta ese momento.
 
-aqui
 ---
 
-## Enfoque recursivo con memoización
+### Enfoque recursivo con memoización
 
 Esta versión mantiene el funcionamiento recursivo, pero utiliza una matriz de memoización para almacenar los resultados ya calculados.
 
@@ -88,7 +87,7 @@ De esta forma se evita repetir los mismos cálculos realizados una y otra vez.
 
 ---
 
-## Enfoque iterativo con programación dinámica
+### Enfoque iterativo con programación dinámica
 
 La versión iterativa utiliza una tabla de programación dinámica de tamaño:
 
@@ -112,15 +111,23 @@ Se almacena en la posición actual el mayor de estos valores. Al terminar, `tabl
 
 Este enfoque corresponde a programación dinámica **bottom-up**, ya que inicia con los casos más pequeños y construye progresivamente la solución.
 
-### Complejidad
-
-```text
-O(n · W)
-```
-
 ---
 
-## Datos del experimento
+## 3. Análisis de complejidad
+
+| Enfoque | Técnica | Complejidad temporal |
+|---|---|---|
+| Recursivo | Recursión | `O(2^n)` |
+| Fuerza bruta | Iterativo / combinaciones | `O(n · 2^n)` |
+| Recursivo con memoización | Programación dinámica Top-Down | `O(n · W)` |
+| Iterativo | Programación dinámica Bottom-Up | `O(n · W)` |
+
+Los enfoques recursivo y de fuerza bruta presentan un crecimiento exponencial debido a la cantidad de posibilidades que deben analizar.
+
+En cambio, las versiones con programación dinámica aprovechan los resultados de subproblemas ya resueltos. La versión con memoización lo hace mediante un enfoque **Top-Down**, mientras que la versión iterativa construye la solución mediante **Bottom-Up**.
+
+
+### 4. Metodología experimental
 
 Para realizar las pruebas se generan objetos con:
 
@@ -149,7 +156,7 @@ En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secu
 
 ---
 
-## Comparación de los enfoques
+### Comparación de los enfoques
 
 | Enfoque | Técnica | Complejidad temporal |
 |---|---|---|
