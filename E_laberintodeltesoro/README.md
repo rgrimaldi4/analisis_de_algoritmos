@@ -17,22 +17,14 @@ Para cada posición se selecciona el camino que permita acumular la mayor cantid
 El problema consiste en obtener el máximo tesoro acumulado desde la posición inicial:
 
 ```text
-(0,0)
+(n-1,n-1)
 ```
 
 hasta la posición final:
 
 ```text
-(n-1,n-1)
+(0,0)
 ```
-
-Se implementaron las siguientes versiones:
-
-- Laberinto del Tesoro recursivo.
-- Laberinto del Tesoro con memoización.
-- Laberinto del Tesoro iterativo.
-
-El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecución entre las tres versiones conforme aumenta el tamaño de la matriz.
 
 ---
 
@@ -77,7 +69,7 @@ if (dp[i][j] != -1)
 
 Si el resultado ya existe, se retorna directamente y no se vuelve a realizar el mismo cálculo.
 
-De esta forma se evita repetir los mismos cálculos realizados por la versión recursiva.
+De esta forma se evita repetir los mismos cálculos realizados, como en la versión recursiva.
 
 Este enfoque corresponde a programación dinámica **Top-Down**.
 
@@ -109,7 +101,7 @@ Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 | Algoritmo | Complejidad temporal |
 |---|:---:|
 | Laberinto recursivo | `O(2^(n+n))` |
-| Laberinto con memoización | `O(n²)` |
+| Laberinto con memoización | `O(n*m)` |
 | Laberinto iterativo | `O(n²)` |
 
 ### Laberinto del Tesoro recursivo
@@ -237,7 +229,8 @@ A partir de los resultados experimentales se generan gráficas para observar el 
 
 ## 6. Análisis de resultados
 
-En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta el tamaño de la matriz, debido a que algunas posiciones se calculan varias veces.
+La versión recursiva del Laberinto del Tesoro permite encontrar el máximo tesoro acumulado considerando los posibles caminos desde arriba y desde la izquierda. 
+Sin embargo, realiza cálculos repetidos, provocando que el número de operaciones aumente rápidamente conforme aumenta el tamaño de la matriz.
 
 Este comportamiento produce un crecimiento exponencial, consistente con:
 
@@ -245,27 +238,21 @@ Este comportamiento produce un crecimiento exponencial, consistente con:
 O(2^(n+n))
 ```
 
-En la versión con memoización, los resultados calculados para cada posición se almacenan y se reutilizan cuando son necesarios nuevamente.
+La versión con memoización mantiene el enfoque recursivo, pero almacena los resultados calculados para reutilizarlos cuando se necesitan nuevamente.
 
 Esto evita repetir cálculos y reduce el crecimiento a:
 
 ```text
-O(n²)
+O(n*m)
 ```
 
-La versión iterativa también presenta una complejidad:
+La versión iterativa utiliza una matriz para construir los resultados desde la posición inicial hasta obtener el máximo tesoro acumulado en la posición final.
+
+La versión iterativa presenta una complejidad:
 
 ```text
 O(n²)
 ```
-
-debido a que utiliza dos ciclos anidados para recorrer las posiciones de la matriz.
-
-La versión recursiva del Laberinto del Tesoro permite encontrar el máximo tesoro acumulado considerando los posibles caminos desde arriba y desde la izquierda. Sin embargo, realiza cálculos repetidos, provocando que el número de operaciones aumente rápidamente conforme aumenta el tamaño de la matriz.
-
-La versión con memoización mantiene el enfoque recursivo, pero almacena los resultados calculados para reutilizarlos cuando se necesitan nuevamente.
-
-La versión iterativa utiliza una matriz para construir los resultados desde la posición inicial hasta obtener el máximo tesoro acumulado en la posición final.
 
 De esta forma, las versiones con programación dinámica reducen considerablemente el número de cálculos realizados en comparación con la versión recursiva.
 
