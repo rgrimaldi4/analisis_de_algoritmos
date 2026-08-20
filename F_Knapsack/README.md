@@ -168,5 +168,37 @@ En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secu
 
 ![Recursivo](memoizaciones.png)
 
+---
 
+### 6. Análisis de los resultados
 
+### Análisis de tiempos
+
+Los resultados muestran una diferencia clara entre los enfoques utilizados. Los algoritmos recursivo y de fuerza bruta iterativo presentan un crecimiento rápido en el tiempo de ejecución, relacionado con sus complejidades O(2ⁿ) y O(n · 2ⁿ), respectivamente.
+
+En el enfoque recursivo, el tiempo aumenta hasta 307.581 segundos para n = 50, mientras que fuerza bruta alcanza 15.922 segundos para n = 25. Las gráficas muestran que los tiempos inicialmente son pequeños, pero aumentan de forma considerable conforme crece el número de objetos, comportamiento característico de los algoritmos con crecimiento exponencial.
+
+Por otro lado, las versiones recursiva con memoización e iterativa, mantienen tiempos considerablemente bajos. Al aumentar la entrada hasta n = 1000, los tiempos registrados permanecen por debajo de 1 segundo. Esto muestra el beneficio de almacenar y reutilizar resultados previamente calculados, evitando gran parte del trabajo repetido presente en los enfoques sin memoizacion.
+
+### Análisis de pasos
+
+Los resultados muestran un crecimiento considerable en el número de pasos de los algoritmos recursivo y de fuerza bruta iterativo, relacionado con sus complejidades O(2ⁿ) y O(n · 2ⁿ), respectivamente. Conforme aumenta el número de objetos, la cantidad de operaciones necesarias crece rápidamente.
+
+En el enfoque recursivo, este crecimiento se debe a que para cada objeto se consideran las posibilidades de incluirlo o no incluirlo. En fuerza bruta, se generan las 2ⁿ combinaciones posibles y se recorren los n objetos para evaluar el peso y valor de cada combinación. Esto provoca el crecimiento exponencial observado en las gráficas.
+
+### Analisis de pasos con Memoizacion
+
+Los resultados muestran que el número de pasos se reduce considerablemente al utilizar memoización, debido a que los resultados de los subproblemas se almacenan y se reutilizan cuando vuelven a ser necesarios. De esta forma, se evita realizar repetidamente los mismos cálculos presentes en el enfoque recursivo sin memoización.
+
+Tanto la versión recursiva con memoización como la versión iterativa presentan un crecimiento mucho menor en comparación con los enfoques exponenciales. En estos casos, el número de operaciones depende principalmente de la cantidad de objetos y de la capacidad de la mochila, dando una complejidad de O(n · W), donde n representa el número de objetos y W la capacidad de la mochila.
+
+Este comportamiento se refleja en los resultados experimentales, donde el número de pasos crece de manera más controlada conforme aumenta n. La reducción de cálculos repetidos permite trabajar con entradas considerablemente mayores, lo cual también explica los bajos tiempos de ejecución observados anteriormente.
+
+---
+
+### Tecnologías utilizadas
+
+- **Lenguaje:** C
+- **Compilador:** GCC
+- **Medición de tiempo:** `clock()`
+- **Materia:** Análisis de Algoritmos
