@@ -45,7 +45,6 @@ Finalmente se selecciona el mayor valor entre ambas posibilidades.
 
 Al no almacenar resultados previamente calculados, se vuelven a resolver subproblemas, provocando un crecimiento exponencial.
 
----
 
 ### Enfoque de fuerza bruta iterativo
 
@@ -60,7 +59,6 @@ Por ejemplo, con 3 objetos `A`, `B`, `C` existen `2^3=8` combinaciones:
 
 El algoritmo recorre cada combinación y calcula su peso y valor total. Si el peso no supera la capacidad de la mochila, compara su valor con el mejor encontrado hasta ese momento.
 
----
 
 ### Enfoque recursivo con memoización
 
@@ -85,7 +83,6 @@ La matriz se inicializa con `-1`, indicando que los estados todavía no han sido
 
 De esta forma se evita repetir los mismos cálculos realizados una y otra vez.
 
----
 
 ### Enfoque iterativo con programación dinámica
 
@@ -126,6 +123,7 @@ Los enfoques recursivo y de fuerza bruta presentan un crecimiento exponencial de
 
 En cambio, las versiones con programación dinámica aprovechan los resultados de subproblemas ya resueltos. La versión con memoización lo hace mediante un enfoque **Top-Down**, mientras que la versión iterativa construye la solución mediante **Bottom-Up**.
 
+---
 
 ### 4. Metodología experimental
 
@@ -156,16 +154,19 @@ En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secu
 
 ---
 
-### Comparación de los enfoques
+## 5. Graficas
 
-| Enfoque | Técnica | Complejidad temporal |
-|---|---|---|
-| Recursivo | Recursión | `O(2^n)` |
-| Fuerza bruta | Iterativo / combinaciones | `O(n · 2^n)` |
-| Recursivo con memoización | Programación dinámica Top-Down | `O(n · W)` |
-| Iterativo | Programación dinámica Bottom-Up | `O(n · W)` |
+### Fuerza bruta y Recursivo: Conteo de tiempos
 
-Los enfoques recursivo y de fuerza bruta presentan un crecimiento exponencial debido a la cantidad de posibilidades que deben analizar.
+![Recursivo](tiempos_recursivos.png)
 
-En cambio, las versiones con programación dinámica aprovechan los resultados de subproblemas ya resueltos. La versión con memoización lo hace mediante un enfoque **Top-Down**, mientras que la versión iterativa construye la solución mediante **Bottom-Up**.
+### Fuerza bruta y Recursivo: Conteo de pasos
+
+![Recursivo](pasos_recursivos.png)
+
+### Memoizacion e Iteraivo: Conteo de pasos
+
+![Recursivo](pasos_iterativos.png)
+
+
 
