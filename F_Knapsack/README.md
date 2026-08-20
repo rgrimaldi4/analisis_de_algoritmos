@@ -19,11 +19,9 @@ typedef struct{
 }Tobjeto;
 ```
 
-Los valores y pesos de los objetos se generan de forma aleatoria. En todos los experimentos se utiliza una capacidad de mochila de `50`.
-
 ---
 
-## 2. Algoritmos implementados
+## 2. Algoritmos implementados  
 
 ### Enfoque recursivo
 
@@ -47,259 +45,121 @@ Finalmente se selecciona el mayor valor entre ambas posibilidades.
 
 Al no almacenar resultados previamente calculados, se vuelven a resolver subproblemas, provocando un crecimiento exponencial.
 
+---
+
+## Enfoque de fuerza bruta iterativo
+
+Esta versión genera y analiza todas las combinaciones posibles de objetos.
+
+Para `n` objetos existen:
+
+```text
+2^n
+```
+
+combinaciones, ya que cada objeto puede estar incluido o no incluido en la mochila.
+
+El algoritmo recorre cada combinación y calcula su peso y valor total. Si el peso no supera la capacidad de la mochila, compara su valor con el mejor encontrado hasta ese momento.
+
+aqui
+---
+
+## Enfoque recursivo con memoización
+
+Esta versión mantiene el funcionamiento recursivo, pero utiliza una matriz de memoización para almacenar los resultados ya calculados.
+
+Cada estado depende de:
+
+- El objeto actual `i`.
+- La capacidad disponible de la mochila.
+
+Antes de realizar nuevamente un cálculo, se verifica si el resultado ya se encuentra almacenado:
+
+```c
+if(memo[i][capacidadBolsa] != -1){
+    return memo[i][capacidadBolsa];
+}
+```
+
+Cuando se obtiene el mejor resultado, este se guarda en la matriz para poder reutilizarlo posteriormente.
+
+La matriz se inicializa con `-1`, indicando que los estados todavía no han sido calculados.
+
+De esta forma se evita repetir los mismos cálculos realizados una y otra vez.
+
+---
+
+## Enfoque iterativo con programación dinámica
+
+La versión iterativa utiliza una tabla de programación dinámica de tamaño:
+
+```text
+(n + 1) × (W + 1)
+```
+
+La tabla se inicializa en `0` y se construye desde los problemas más pequeños hasta obtener la solución completa.
+
+Para cada objeto y cada capacidad se comparan dos posibilidades:
+
+```c
+int valorAgregado = valorActual +
+    tabla[i - 1][c - pesoActual];
+
+int valorIgnorado =
+    tabla[i - 1][c];
+```
+
+Se almacena en la posición actual el mayor de estos valores. Al terminar, `tabla[longitud][capacidadBolsa]` contiene el mejor valor que puede obtenerse sin superar la capacidad de la mochila.
+
+Este enfoque corresponde a programación dinámica **bottom-up**, ya que inicia con los casos más pequeños y construye progresivamente la solución.
+
 ### Complejidad
 
 ```text
-O(2^n)
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Laberinto del Tesoro recursivo
-
-**Archivo:** "laberintotesoro_.c"
-
-La versión recursiva inicia desde la posición final de la matriz y realiza llamadas recursivas considerando dos posibles caminos:
-
-```text
-Arriba
-Izquierda
-```
-
-Para cada posición se calculan ambos caminos y se selecciona el que permita acumular la mayor cantidad de tesoro.
-
-```c
-int arriba = LT_rec(i - 1, j);
-int izquierda = LT_rec(i, j - 1);
-```
-
-Este proceso continúa hasta alcanzar la posición inicial `(0,0)`.
-
-El problema de esta implementación es que algunos caminos y posiciones se calculan repetidamente, provocando que el número de llamadas aumente rápidamente conforme aumenta el tamaño de la matriz.
-
-### Laberinto del Tesoro con memoización
-
-**Archivo:** "laberintomemo.c"
-
-La segunda versión utiliza recursión con **memoización**.
-
-La memoización consiste en almacenar en una matriz los resultados que ya fueron calculados.
-
-Antes de calcular nuevamente una posición, el algoritmo verifica si el resultado se encuentra almacenado:
-
-```c
-if (dp[i][j] != -1)
-    return dp[i][j];
-```
-
-Si el resultado ya existe, se retorna directamente y no se vuelve a realizar el mismo cálculo.
-
-De esta forma se evita repetir los mismos cálculos realizados, como en la versión recursiva.
-
-Este enfoque corresponde a programación dinámica **Top-Down**.
-
-### Laberinto del Tesoro iterativo
-
-**Archivo:** "laberintoiterativa.c"
-
-La tercera versión utiliza programación dinámica de forma iterativa.
-
-Se utiliza una matriz, donde cada posición almacena la cantidad máxima de tesoro que puede acumularse hasta esa posición.
-
-El algoritmo recorre la matriz utilizando dos ciclos anidados.
-
-Para cada posición se obtiene el valor acumulado desde arriba y desde la izquierda:
-
-```c
-int arriba = dp[i - 1][j];
-int izquierda = dp[i][j - 1];
-```
-
-Posteriormente se selecciona el mayor y se suma el tesoro de la posición actual.
-
-Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
-
----
-
-## 3. Análisis de complejidad
-
-| Algoritmo | Complejidad temporal |
-|---|:---:|
-| Laberinto recursivo | `O(2^(n+n))` |
-| Laberinto con memoización | `O(n*m)` |
-| Laberinto iterativo | `O(n²)` |
-
-### Laberinto del Tesoro recursivo
-
-Para una posición de la matriz, el algoritmo puede realizar dos llamadas recursivas:
-
-```text
-Arriba
-Izquierda
-```
-
-Cada una de estas llamadas puede generar nuevas llamadas hasta alcanzar los límites de la matriz.
-
-Además, algunas posiciones se calculan repetidamente.
-
-Por lo tanto, para una matriz de `n × n`, se considera una complejidad temporal de:
-
-```text
-O(2^(n+n))
-```
-
-Este crecimiento provoca que la versión recursiva deje de ser práctica para matrices grandes.
-
-### Laberinto del Tesoro con memoización
-
-La versión con memoización almacena el resultado correspondiente a cada posición `(i,j)`.
-
-En una matriz de tamaño:
-
-```text
-n × n
-```
-
-existen `n²` posiciones posibles.
-
-Cada posición se calcula y se almacena para evitar volver a realizar el mismo cálculo.
-
-Por esta razón, el crecimiento se reduce a:
-
-```text
-O(n²)
-```
-
-### Laberinto del Tesoro iterativo
-
-La versión iterativa utiliza dos ciclos anidados para recorrer la matriz:
-
-```c
-for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-```
-
-Ambos ciclos recorren hasta `n`.
-
-Por lo tanto, se recorren las `n²` posiciones de la matriz y la complejidad temporal es:
-
-```text
-O(n²)
+O(n · W)
 ```
 
 ---
 
+## Datos del experimento
 
-## 4. Metodología experimental
+Para realizar las pruebas se generan objetos con:
 
-Para analizar el comportamiento de las tres versiones se utilizan diferentes tamaños de matrices.
-
-Los valores de la matriz se generan de forma aleatoria utilizando valores entre `1` y `20`.
-
-Se utiliza una semilla fija:
-
-```c
-srand(1);
+```text
+Valor: 1 a 20
+Peso:  1 a 10
+Capacidad de la mochila: 50
 ```
 
-para mantener los mismos valores durante los experimentos.
+Los programas registran el número de pasos realizados y el tiempo de ejecución mediante `clock()`. Por cada tamaño de entrada se imprime:
 
-Para cada tamaño de matriz se registran:
-
-- Máximo tesoro acumulado.
-- Número de pasos o llamadas.
-- Tiempo de ejecución.
-
-El tiempo se mide utilizando:
-
-```c
-clock()
+```text
+n, mejor valor, pasos, tiempo
 ```
 
-y se convierte a segundos mediante:
+Por ejemplo:
 
-```c
-tiempo = (double)(tiempo_fin - tiempo_inicio) / CLOCKS_PER_SEC;
+```text
+10, valor, pasos, tiempo
+15, valor, pasos, tiempo
+20, valor, pasos, tiempo
+...
 ```
 
-En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función correspondiente.
-
-En la versión iterativa se considera como un **paso** cada posición de la matriz procesada por los ciclos.
-
-De esta forma, los resultados permiten observar el crecimiento de cada versión conforme aumenta el tamaño de la matriz.
+En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secuencia reproducible de valores generados por `rand()`.
 
 ---
 
-## 5. Graficas
+## Comparación de los enfoques
 
-A partir de los resultados experimentales se generan gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de la matriz.
+| Enfoque | Técnica | Complejidad temporal |
+|---|---|---|
+| Recursivo | Recursión | `O(2^n)` |
+| Fuerza bruta | Iterativo / combinaciones | `O(n · 2^n)` |
+| Recursivo con memoización | Programación dinámica Top-Down | `O(n · W)` |
+| Iterativo | Programación dinámica Bottom-Up | `O(n · W)` |
 
-### Laberinto recursivo: Conteo de Pasos
+Los enfoques recursivo y de fuerza bruta presentan un crecimiento exponencial debido a la cantidad de posibilidades que deben analizar.
 
-![Recursivo](recursivo_pasos.png)
+En cambio, las versiones con programación dinámica aprovechan los resultados de subproblemas ya resueltos. La versión con memoización lo hace mediante un enfoque **Top-Down**, mientras que la versión iterativa construye la solución mediante **Bottom-Up**.
 
-### Laberinto con memoización e iterativo: Conteo de Pasos
-
-![MemoRecursivo](memo_iterativ_pasos.png)
-
-### Laberinto recursivo: Conteo de Tiempos
-
-![Recursivo](recursivo_tiempos.png)
-
-### Laberinto con memoización e iterativo: Conteo de Tiempos
-
-![Memoización](memo_iterativo_tiempos.png)
-
----
-
-## 6. Análisis de resultados
-
-La versión recursiva del Laberinto del Tesoro permite encontrar el máximo tesoro acumulado considerando los posibles caminos desde arriba y desde la izquierda. 
-Sin embargo, realiza cálculos repetidos, provocando que el número de operaciones aumente rápidamente conforme aumenta el tamaño de la matriz.
-
-Este comportamiento produce un crecimiento exponencial, consistente con:
-
-```text
-O(2^(n+n))
-```
-
-La versión con memoización mantiene el enfoque recursivo, pero almacena los resultados calculados para reutilizarlos cuando se necesitan nuevamente.
-
-Esto evita repetir cálculos y reduce el crecimiento a:
-
-```text
-O(n*m)
-```
-
-La versión iterativa utiliza una matriz para construir los resultados desde la posición inicial hasta obtener el máximo tesoro acumulado en la posición final.
-
-La versión iterativa presenta una complejidad:
-
-```text
-O(n²)
-```
-
-De esta forma, las versiones con programación dinámica reducen considerablemente el número de cálculos realizados en comparación con la versión recursiva.
-
-La comparación permite observar cómo la memoización y la tabulación mejoran el comportamiento del algoritmo al evitar el cálculo repetido de los mismos subproblemas.
-
----
-
-### Tecnologías utilizadas
-
-- **Lenguaje:** C
-- **Compilador:** GCC
-- **Medición de tiempo:** `clock()`
-- **Materia:** Análisis de Algoritmos
