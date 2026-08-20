@@ -51,13 +51,12 @@ Al no almacenar resultados previamente calculados, se vuelven a resolver subprob
 
 Esta versión genera y analiza todas las combinaciones posibles de objetos.
 
-Para `n` objetos existen:
+Para `n` objetos existen `2^n` combinaciones, ya que cada objeto puede estar incluido o no incluido en la mochila.
 
-```text
-2^n
-```
 
-combinaciones, ya que cada objeto puede estar incluido o no incluido en la mochila.
+Por ejemplo, con 3 objetos `A`, `B`, `C` existen `2^3=8` combinaciones:
+
+`{ }, {A}, {B}, {C}, {A,B}, {A,C}, {B,C}, {A,B,C}`
 
 El algoritmo recorre cada combinación y calcula su peso y valor total. Si el peso no supera la capacidad de la mochila, compara su valor con el mejor encontrado hasta ese momento.
 
