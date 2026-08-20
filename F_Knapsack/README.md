@@ -164,9 +164,9 @@ En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secu
 
 ![Recursivo](pasos_recursivos.png)
 
-### Memoizacion e Iteraivo: Conteo de pasos
+### Memoizacion recursivo y Memoizacion iterativo: Conteo de pasos
 
-![Recursivo](pasos_iterativos.png)
+![Recursivo](memoizaciones.png)
 
 
 
