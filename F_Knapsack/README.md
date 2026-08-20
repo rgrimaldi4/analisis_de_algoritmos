@@ -192,7 +192,7 @@ Los resultados muestran que el número de pasos se reduce considerablemente al u
 
 Tanto la versión recursiva con memoización como la versión iterativa presentan un crecimiento mucho menor en comparación con los enfoques exponenciales. En estos casos, el número de operaciones depende principalmente de la cantidad de objetos y de la capacidad de la mochila, dando una complejidad de O(n · W), donde n representa el número de objetos y W la capacidad de la mochila.
 
-Este comportamiento se refleja en los resultados experimentales, donde el número de pasos crece de manera más controlada conforme aumenta n. La reducción de cálculos repetidos permite trabajar con entradas considerablemente mayores, lo cual también explica los bajos tiempos de ejecución observados anteriormente.
+Este comportamiento se refleja en los resultados experimentales, donde el número de pasos crece de manera más controlada conforme aumenta n. La eliminacion de cálculos repetidos permite trabajar con entradas considerablemente mayores, lo cual también explica los bajos tiempos de ejecución mencionados anteriormente.
 
 ---
 
