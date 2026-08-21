@@ -94,6 +94,6 @@ En Prim, los tiempos fueron registrados en **segundos**, mientras que en Kruskal
 
 ### Prim y Kruskal
 
-![Prim Y Kruskal](kruskal_prim.png)
+![Prim Y Kruskal](graficas.png)
 
 ---
