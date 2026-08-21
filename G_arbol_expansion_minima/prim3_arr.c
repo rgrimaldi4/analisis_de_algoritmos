@@ -33,12 +33,10 @@ void getAdyacencia(int n, int **Grafo){
 
 //-----------------------------------
 
-int estaEncolado(int *cola, int dato){
-    for(int i=0; i<=final; i++){
-        if(cola[i] == dato){
-            return 1;
-        }
-    }   
+int estaEncolado(int *posicionEnHeap, int dato){
+    if(posicionEnHeap[dato] != -1){
+        return 1;
+    }
     return 0;
 }
 
@@ -66,7 +64,7 @@ void max_heapify(int *cola, int i, int k){
 }*/
 
 
-void min_heapify(int *cola, int i, int k, int *key){    
+void min_heapify(int *cola, int i, int k, int *key, int *posicionEnHeap){    
     int masPequenio = 0;
     int l = (i*2)+1; //indice nodo hijo izquierdo
     int r = (i*2)+2; //indice nodo hijo derecho
@@ -81,22 +79,46 @@ void min_heapify(int *cola, int i, int k, int *key){
     }
     
     if(masPequenio != i){
+        posicionEnHeap[cola[i]] = masPequenio;
+        posicionEnHeap[cola[masPequenio]] = i;
+
         int aux = cola[i];
         cola[i] = cola[masPequenio];
         cola[masPequenio] = aux;
-        min_heapify(cola, masPequenio, k, key);
+        min_heapify(cola, masPequenio, k, key, posicionEnHeap);
     }
 }
 
 //extrae siempre del frente
-int extraer_nodo(int *cola, int *key){
+int extraer_nodo(int *cola, int *key, int *posicionEnHeap){
     int nodo = cola[0];
+    posicionEnHeap[nodo] = -1;
+
+    if(final > 0){
+        posicionEnHeap[cola[final]] = 0;
+    }
     cola[0] = cola[final];
     final--;
     if(final>=0){
-        min_heapify(cola, 0, final, key);
+        min_heapify(cola, 0, final, key, posicionEnHeap);
     }
     return nodo;
+}
+
+void disminuir_clave(int *cola, int *key, int *posicionEnHeap, int i){
+    int pos = posicionEnHeap[i];
+    while(pos > 0 && key[cola[pos]] < key[cola[(pos - 1) / 2]]){
+        int padre = (pos - 1) / 2;
+
+        posicionEnHeap[cola[pos]] = padre;
+        posicionEnHeap[cola[padre]] = pos;
+
+        int aux = cola[pos];
+        cola[pos] = cola[padre];
+        cola[padre] = aux;
+
+        pos = padre;
+    }
 }
 
 void prim( int **Grafo, int r, int n){
@@ -107,6 +129,7 @@ void prim( int **Grafo, int r, int n){
     int *cola = malloc(sizeof(int)*n); //nodos pendientes (cola con prioridad)
     int *key  = malloc(sizeof(int)*n); //pesos 
     int *pi   = malloc(sizeof(int)*n); //padres
+    int *posicionEnHeap = malloc(sizeof(int)*n);
 
     //cola con prioridad(inicial)
     for(int i=0; i<n; i++){
@@ -114,30 +137,36 @@ void prim( int **Grafo, int r, int n){
         cola[i] = i;
         key[i]  = INT_MAX;
         pi[i] = -1;
+        posicionEnHeap[i] = i;
     }
 
     key[r] = 0; //asignamos la prioridad del nodo r(raiz)
+    disminuir_clave(cola, key, posicionEnHeap, r);
+
     /*
     Q[0,1,2,3,4]
     key[0,m,m,m,m]
     pi[null,-,-,-,-]
     */
     while( final>=0 ){
-        int minNodo = extraer_nodo(cola, key);
+        int minNodo = extraer_nodo(cola, key, posicionEnHeap);
         
         //buscar adyacentes
         for(int i=0; i<n; i++){
-            if( Grafo[minNodo][i] != 0 &&  estaEncolado(cola, i) ){
+            if( Grafo[minNodo][i] != 0 &&  estaEncolado(posicionEnHeap, i) ){
                 if( Grafo[minNodo][i] < key[i] ){
                     key[i] = Grafo[minNodo][i];
                     pi[i] = minNodo;
+                    disminuir_clave(cola, key, posicionEnHeap, i);
                 }
-            }           
-        }
-        for(int j = final/2; j>=0; j--){
-            min_heapify(cola, j, final, key);
+            }          
         }
     }
+
+    free(cola);
+    free(key);
+    free(pi);
+    free(posicionEnHeap);
 
     /*
     printf("\n\nArbol Exp Min:\n");

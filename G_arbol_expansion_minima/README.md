@@ -24,10 +24,13 @@ La implementación utiliza una matriz de adyacencia para representar el grafo y 
 - `cola`: contiene los vértices pendientes de agregar.
 - `key`: almacena el menor peso conocido para conectar cada vértice.
 - `pi`: almacena el vértice padre de cada nodo dentro del árbol.
+- `posicionEnHeap`: almacena la posición actual de cada vértice dentro del heap.
 
-Para seleccionar el siguiente vértice se utiliza una cola de prioridad basada en un **min-heap**.
+El arreglo posicionEnHeap permite saber directamente si un vértice continúa dentro de la cola de prioridad. Cuando un vértice es extraído del heap, su posición se establece en -1.
 
-Después de extraer un vértice, se recorren sus adyacentes y se actualizan los valores de `key` cuando se encuentra una conexión con menor peso.
+Cuando se encuentra una arista con menor peso para conectar un vértice, se actualizan key y pi, y posteriormente se utiliza la función disminuir_clave para reorganizar el vértice dentro del min-heap.
+
+De esta forma, el algoritmo siempre puede extraer el vértice con menor valor de key y mantener la estructura de la cola de prioridad.
 
 ---
 
@@ -53,77 +56,37 @@ Cuando una arista es seleccionada, los conjuntos correspondientes a sus vértice
 
 ### Prim
 
-En la implementación utilizada, el grafo se representa mediante una **matriz de adyacencia**.
+La implementación utiliza una **matriz de adyacencia**, por lo que se recorren hasta `V^2` posiciones para buscar las conexiones entre los vértices.
 
-Para cada vértice extraído se recorren los posibles vértices adyacentes. Además, la función utilizada para determinar si un vértice continúa dentro de la cola realiza otro recorrido sobre los elementos pendientes.
+La consulta para saber si un vértice continúa en el heap tiene una complejidad de `O(1)`, mientras que las operaciones `disminuir_clave` y `min_heapify` tienen una complejidad de `O(log V)`.
 
-Por esta razón, para esta implementación el crecimiento puede aproximarse como:
+Por lo tanto, considerando el recorrido de la matriz y las posibles actualizaciones del min-heap, la complejidad de esta implementación en el peor caso es:
 
-```text
-O(V^3)
-```
-
-donde `V` representa el número de vértices.
-
-Aunque se utiliza un min-heap para seleccionar los elementos de menor peso, el recorrido realizado para comprobar los elementos que permanecen en la cola incrementa el trabajo realizado por el algoritmo.
+**O(V² log V)**
 
 ---
 
 ### Kruskal
 
-Kruskal requiere inicialmente obtener las aristas del grafo y ordenarlas de acuerdo con su peso.
+Kruskal obtiene las aristas del grafo y las ordena de menor a mayor peso. El ordenamiento de `E` aristas tiene una complejidad de `O(E log E)`.
 
-El ordenamiento de `n` aristas tiene una complejidad aproximada de:
+Después, las aristas son recorridas para seleccionar aquellas que no generen ciclos. En esta implementación, `union_set` recorre el arreglo de vértices, por lo que tiene un costo de `O(V)`.
 
-```text
-O(n log n)
-```
-
-Posteriormente, las aristas son recorridas para determinar cuáles pueden agregarse al árbol sin generar ciclos.
-
-En la implementación utilizada, la operación `union_set` recorre el arreglo de vértices para realizar la unión de los conjuntos, por lo que esta operación tiene un costo de:
-
-```text
-O(n)
-```
-
-Considerando el ordenamiento de las aristas, la operación principal que caracteriza a Kruskal es:
-
-```text
-O(n log n)
-```
+Por lo tanto, la complejidad está dominada principalmente por el ordenamiento de las aristas y por las operaciones de unión realizadas durante el algoritmo.
 
 ---
 
 ## 4. Metodología experimental
 
-Para analizar el comportamiento de los algoritmos se utilizó un grafo representado mediante una **matriz de adyacencia**, cuyos datos fueron obtenidos desde el archivo:
+Para analizar el comportamiento de los algoritmos **Prim** y **Kruskal**, se utilizó un grafo representado mediante una matriz de adyacencia obtenida del archivo `coordenadas.csv`.
 
-```text
-coordenadas.csv
-```
+En **Prim**, se utilizaron tamaños de entrada desde `n = 20` hasta `n = 1000`, aumentando en intervalos de 5 vértices. Para cada tamaño se realizaron **30 ejecuciones** del algoritmo.
 
-Se utilizaron diferentes tamaños de entrada, aumentando progresivamente el número de vértices hasta aproximadamente `n = 1000`.
+En **Kruskal**, se utilizaron tamaños desde `n = 10` hasta valores cercanos a `n = 1000`, aumentando en intervalos de 20 vértices. Para cada tamaño también se realizaron **30 ejecuciones**.
 
-Para cada tamaño de entrada se realizaron:
+En ambos casos se registró el tiempo de ejecución y, para reducir el efecto de valores extremos, se eliminó el tiempo mayor y el menor. El promedio se calculó utilizando las **28 mediciones restantes**.
 
-```text
-30 experimentos
-```
-
-En cada grupo de experimentos se registró el tiempo de ejecución. Para reducir el efecto de valores extremos, se eliminó el tiempo mayor y el tiempo menor registrados.
-
-El promedio se obtuvo utilizando los 28 valores restantes:
-
-```text
-promedio = (suma - (mayor + menor)) / 28
-```
-
-En **Prim**, los tamaños utilizados van desde `n = 20` hasta `n = 1000`, con incrementos de 5.
-
-En **Kruskal**, los tamaños utilizados van desde `n = 10` hasta valores cercanos a `n = 1000`, con incrementos de 20.
-
-Los tiempos de Prim fueron registrados en **segundos**, mientras que los tiempos mostrados para Kruskal fueron registrados en **milisegundos**.
+En Prim, los tiempos fueron registrados en **segundos**, mientras que en Kruskal se registraron en **milisegundos**. 
 
 ---
 
