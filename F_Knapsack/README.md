@@ -1,5 +1,7 @@
 # Knapsack Problem
 
+## 1. Descripción
+
 El **Knapsack Problem (problema de la mochila)** consiste en seleccionar un conjunto de objetos, donde cada objeto tiene un **peso** y un **valor**, buscando obtener el mayor valor posible sin superar la capacidad máxima de la mochila.
 
 En este experimento se implementaron diferentes enfoques para resolver el mismo problema y comparar su comportamiento:
@@ -125,7 +127,7 @@ En cambio, las versiones con programación dinámica aprovechan los resultados d
 
 ---
 
-### 4. Metodología experimental
+## 4. Metodología experimental
 
 Para realizar las pruebas se generan objetos con:
 
@@ -170,7 +172,7 @@ En las implementaciones se utiliza `srand(1)`, permitiendo trabajar con una secu
 
 ---
 
-### 6. Análisis de los resultados
+## 6. Análisis de los resultados
 
 ### Análisis de tiempos
 
