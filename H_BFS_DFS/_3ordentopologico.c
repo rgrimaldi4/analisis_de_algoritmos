@@ -106,8 +106,8 @@ void DFS(int g, int **matAdj, Tnodo **listaTopo){
         }
     }
 
-    printf("\n");
-    print_path(g,0,g-1,pi);
+    //printf("\n");
+    //print_path(g,0,g-1,pi);
 
     free(color);
     free(d);
@@ -121,20 +121,20 @@ int main(){
     srand(time(NULL));
     double tiempo = 0;
     clock_t inicio_tiempo, fin_tiempo;
-    int experimentos = 1;
+    int experimentos = 30;
     Tnodo *miLista = NULL;
     //tomar k vertices
-    for(int k=10; k<=50; k+=50){
+    for(int k=10; k<=1000; k+=50){
 
         int **matrizAdj = malloc(sizeof(int*)*k);
         leer_archivo(k, matrizAdj);
 
-        printf("\nGrafo(mat adj): \n");
+        /*printf("\nGrafo(mat adj): \n");
         for(int i=0; i<k; i++){
             for (int j = 0; j < k; j++){
                 printf("%d ", matrizAdj[i][j]);
             }printf("\n");
-        }
+        }*/
         
         double mayor = -1;
         double menor = DBL_MAX;
@@ -145,8 +145,8 @@ int main(){
             
             DFS(k, matrizAdj, &miLista);
 
-            printf("\norden topologico:\n");
-            mostratLista(miLista);
+            //printf("\norden topologico:\n");
+            //mostratLista(miLista);
             
             fin_tiempo = clock(); //fin tiempo
             tiempo = (double)(fin_tiempo-inicio_tiempo)/CLOCKS_PER_SEC;
