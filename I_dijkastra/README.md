@@ -30,6 +30,7 @@ Para seleccionar el siguiente vértice, la función **extractMin** recorre el ar
 Una vez seleccionado, se recorren sus vértices adyacentes. Para cada uno se calcula la distancia acumulada desde el origen y, si esta distancia es menor que la almacenada anteriormente, se actualizan su distancia y su padre.
 
 Al finalizar, se imprime para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial. 
+
 ---
 
 ### Dijkstra con cola de prioridad
@@ -43,6 +44,7 @@ En cada iteración se extrae un vértice de la cola y posteriormente se reorgani
 Después se recorren los vértices adyacentes y se calcula la distancia acumulada. Si se encuentra una distancia menor, se actualizan **dist** y **parent**, y se reorganiza nuevamente el heap de acuerdo con las nuevas distancias.
 
 Al finalizar, también se imprime para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial. 
+
 ---
 
 ## 3. Análisis de complejidad
@@ -56,7 +58,7 @@ Además, cada vez que se selecciona un vértice se recorre una fila de la matriz
 Como este proceso se realiza para los n vértices, la complejidad de esta implementación es:
 
 **O(n²)**
-aqui
+
 ---
 
 ### Dijkstra con cola de prioridad
