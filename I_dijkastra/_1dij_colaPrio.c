@@ -28,33 +28,67 @@ void imprimirGrafo(int *parent, int n, int*dist){
     }
 }
 
-void min_heapify(int *cola, int i, int k, int *key){
-    int masPequenio = 0;
-    int l = (i*2)+1; //indice nodo hijo izquierdo
-    int r = (i*2)+2; //indice nodo hijo derecho
-    if (l <= k && key[cola[l]] < key[cola[i]]){
-        masPequenio = l;
-    }else{
-        masPequenio = i;
-    }
-    
-    if(r <= k && key[cola[r]] < key[cola[masPequenio]]){
-        masPequenio = r;
-    }
-    
-    if(masPequenio != i){
-        int aux = cola[i];
-        cola[i] = cola[masPequenio];
-        cola[masPequenio] = aux;
-        min_heapify(cola, masPequenio, k, key);
+
+void intercambiar(int *cola, int *pos, int i, int j) {
+    int temp = cola[i];
+    cola[i] = cola[j];
+    cola[j] = temp;
+
+    pos[cola[i]] = i;
+    pos[cola[j]] = j;
+}
+
+void decreaseKey(int *cola, int *pos, int v, int *dist) {
+    int i = pos[v]; // Acceso directo sin bucle for
+
+    if (i == -1) return; // Ya no está en la cola
+
+    while (i > 0) {
+        int padre = (i - 1) / 2;
+        if (dist[cola[i]] < dist[cola[padre]]) {
+            intercambiar(cola, pos, i, padre);
+            i = padre;
+        } else {
+            break;
+        }
     }
 }
 
-//extrae siempre del frente
-int extractMin(int *cola){
+void min_heapify(int *cola, int *pos, int i, int k, int *key) {
+    int masPequenio = i;
+    int l = (i * 2) + 1;
+    int r = (i * 2) + 2;
+
+    if (l <= k && key[cola[l]] < key[cola[masPequenio]]) {
+        masPequenio = l;
+    }
+
+    if (r <= k && key[cola[r]] < key[cola[masPequenio]]) {
+        masPequenio = r;
+    }
+
+    if (masPequenio != i) {
+        intercambiar(cola, pos, i, masPequenio);
+        min_heapify(cola, pos, masPequenio, k, key);
+    }
+}
+
+int extractMin(int *cola, int *pos, int *dist) {
     int nodo = cola[0];
+    
+    pos[nodo] = -1; // Marcamos que el nodo extraído ya no está en la cola
     cola[0] = cola[final];
+    
+    if (final > 0) {
+        pos[cola[0]] = 0;
+    }
+    
     final--;
+
+    if (final >= 0) {
+        min_heapify(cola, pos, 0, final, dist);
+    }
+
     return nodo;
 }
 
@@ -62,42 +96,44 @@ int extractMin(int *cola){
 n: numero de vertices
 s: vertice inicial, iniciamos con vertice 0
 w: peso(o key) para el vertice inicial, 0 para llegar a vertice 0 */
-void dijkstra(int **G, int n, int s, int w){
-    int *dist = malloc(sizeof(int)*n);
-    int *parent = malloc(sizeof(int)*n);
-    int *visitados = malloc(sizeof(int)*n);
-    int *cola = malloc(sizeof(int)*n);
+void dijkstra(int **G, int n, int s, int w) {
+    int *dist = malloc(sizeof(int) * n);
+    int *parent = malloc(sizeof(int) * n);
+    int *visitados = malloc(sizeof(int) * n);
+    int *cola = malloc(sizeof(int) * n);
+    int *pos = malloc(sizeof(int) * n); // Rastrea la posición de cada vértice en la cola
 
-    for(int i=0; i<n; i++){
+    final = -1;
+
+    for (int i = 0; i < n; i++) {
         dist[i] = INT_MAX;
         parent[i] = -1;
         visitados[i] = 0;
 
-        //iniciar la cola
         final++;
         cola[i] = i;
+        pos[i] = i; // Inicialmente el vértice 'i' está en la posición 'i'
     }
-    dist[s] = w;
 
-    while( frente <= final ){
-        int u = extractMin( cola );
+    dist[s] = w;
+    decreaseKey(cola, pos, s, dist); // Coloca el nodo inicial al frente del Heap
+
+    while (frente <= final) {
+        int u = extractMin(cola, pos, dist);
         visitados[u] = 1;
-        
-        //heap
-        if(final>=0){
-            min_heapify(cola, 0, final, dist);
-        }
-        
-        //buscar adyascentes
-        for(int v=0; v<n; v++){
-            if(G[u][v] != 0){
-                int disAcum = dist[u] + G[u][v];
-                if( disAcum < dist[v]){
-                    dist[v] = disAcum;
+
+        if (dist[u] == INT_MAX) break;
+
+        for (int v = 0; v < n; v++) {
+            // Se verifica la existencia de arista y que el nodo v siga en la cola
+            if (G[u][v] != 0 && pos[v] != -1) {
+                
+                // Corrección del overflow de INT_MAX
+                if (dist[u] != INT_MAX && dist[u] + G[u][v] < dist[v]) {
+                    dist[v] = dist[u] + G[u][v];
                     parent[v] = u;
-                    for(int j = final/2; j >= 0; j--){
-                        min_heapify(cola, j, final, dist);
-                    }                    
+
+                    decreaseKey(cola, pos, v, dist); // O(log V)
                 }
             }
         }
@@ -109,6 +145,7 @@ void dijkstra(int **G, int n, int s, int w){
     free(visitados);
     free(parent);
     free(cola);
+    free(pos);
 }
 
 int main(){
