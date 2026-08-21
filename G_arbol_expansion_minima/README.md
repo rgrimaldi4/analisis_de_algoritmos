@@ -21,10 +21,10 @@ El algoritmo de **Prim** construye el árbol de expansión mínima comenzando de
 
 La implementación utiliza una matriz de adyacencia para representar el grafo y tres arreglos principales:
 
-- `cola`: contiene los vértices pendientes de agregar.
-- `key`: almacena el menor peso conocido para conectar cada vértice.
-- `pi`: almacena el vértice padre de cada nodo dentro del árbol.
-- `posicionEnHeap`: almacena la posición actual de cada vértice dentro del heap.
+- **cola**: contiene los vértices pendientes de agregar.
+- **key**: almacena el menor peso conocido para conectar cada vértice.
+- **pi**: almacena el vértice padre de cada nodo dentro del árbol.
+- **posicionEnHeap**: almacena la posición actual de cada vértice dentro del heap.
 
 El arreglo posicionEnHeap permite saber directamente si un vértice continúa dentro de la cola de prioridad. Cuando un vértice es extraído del heap, su posición se establece en -1.
 
@@ -48,7 +48,7 @@ Posteriormente, las aristas se ordenan de menor a mayor peso.
 
 El algoritmo recorre las aristas ordenadas y agrega una arista cuando los vértices que conecta pertenecen a conjuntos diferentes. De esta forma se evita la formación de ciclos.
 
-Cuando una arista es seleccionada, los conjuntos correspondientes a sus vértices son unidos. El proceso continúa hasta obtener `n - 1` aristas.
+Cuando una arista es seleccionada, los conjuntos correspondientes a sus vértices son unidos. El proceso continúa hasta obtener **n - 1** aristas.
 
 ---
 
@@ -56,9 +56,9 @@ Cuando una arista es seleccionada, los conjuntos correspondientes a sus vértice
 
 ### Prim
 
-La implementación utiliza una **matriz de adyacencia**, por lo que se recorren hasta `V^2` posiciones para buscar las conexiones entre los vértices.
+La implementación utiliza una **matriz de adyacencia**, por lo que se recorren hasta **V^2** posiciones para buscar las conexiones entre los vértices.
 
-La consulta para saber si un vértice continúa en el heap tiene una complejidad de `O(1)`, mientras que las operaciones `disminuir_clave` y `min_heapify` tienen una complejidad de `O(log V)`.
+La consulta para saber si un vértice continúa en el heap tiene una complejidad de **O(1)**, mientras que las operaciones **disminuir_clave** y **min_heapify** tienen una complejidad de **O(log V)**.
 
 Por lo tanto, considerando el recorrido de la matriz y las posibles actualizaciones del min-heap, la complejidad de esta implementación en el peor caso es:
 
@@ -68,9 +68,9 @@ Por lo tanto, considerando el recorrido de la matriz y las posibles actualizacio
 
 ### Kruskal
 
-Kruskal obtiene las aristas del grafo y las ordena de menor a mayor peso. El ordenamiento de `E` aristas tiene una complejidad de `O(E log E)`.
+Kruskal obtiene las aristas del grafo y las ordena de menor a mayor peso. El ordenamiento de **E** aristas tiene una complejidad de **O(E log E)**.
 
-Después, las aristas son recorridas para seleccionar aquellas que no generen ciclos. En esta implementación, `union_set` recorre el arreglo de vértices, por lo que tiene un costo de `O(V)`.
+Después, las aristas son recorridas para seleccionar aquellas que no generen ciclos. En esta implementación, **union_set** recorre el arreglo de vértices, por lo que tiene un costo de **O(V)**.
 
 Por lo tanto, la complejidad está dominada principalmente por el ordenamiento de las aristas y por las operaciones de unión realizadas durante el algoritmo.
 
@@ -78,11 +78,11 @@ Por lo tanto, la complejidad está dominada principalmente por el ordenamiento d
 
 ## 4. Metodología experimental
 
-Para analizar el comportamiento de los algoritmos **Prim** y **Kruskal**, se utilizó un grafo representado mediante una matriz de adyacencia obtenida del archivo `coordenadas.csv`.
+Para analizar el comportamiento de los algoritmos **Prim** y **Kruskal**, se utilizó un grafo representado mediante una matriz de adyacencia obtenida del archivo **coordenadas.csv**.
 
-En **Prim**, se utilizaron tamaños de entrada desde `n = 20` hasta `n = 1000`, aumentando en intervalos de 5 vértices. Para cada tamaño se realizaron **30 ejecuciones** del algoritmo.
+En **Prim**, se utilizaron tamaños de entrada desde **n = 20** hasta **n = 1000**, aumentando en intervalos de 5 vértices. Para cada tamaño se realizaron **30 ejecuciones** del algoritmo.
 
-En **Kruskal**, se utilizaron tamaños desde `n = 10` hasta valores cercanos a `n = 1000`, aumentando en intervalos de 20 vértices. Para cada tamaño también se realizaron **30 ejecuciones**.
+En **Kruskal**, se utilizaron tamaños desde **n = 10** hasta valores cercanos a **n = 1000**, aumentando en intervalos de 20 vértices. Para cada tamaño también se realizaron **30 ejecuciones**.
 
 En ambos casos se registró el tiempo de ejecución y, para reducir el efecto de valores extremos, se eliminó el tiempo mayor y el menor. El promedio se calculó utilizando las **28 mediciones restantes**.
 
@@ -100,9 +100,9 @@ En Prim, los tiempos fueron registrados en **segundos**, mientras que en Kruskal
 
 ## 6. Análisis de los resultados
 
-En **Prim**, los tiempos se mantienen bajos para entradas pequeñas y aumentan de forma progresiva conforme crece `N`. Para valores cercanos a `n = 1000`, el tiempo alcanza aproximadamente **0.005 segundos**. La gráfica presenta un crecimiento continuo, relacionado con el recorrido de la matriz de adyacencia y las operaciones realizadas sobre el min-heap.
+En **Prim**, los tiempos se mantienen bajos para entradas pequeñas y aumentan de forma progresiva conforme crece **N**. Para valores cercanos a **n = 1000**, el tiempo alcanza aproximadamente **0.005 segundos**. La gráfica presenta un crecimiento continuo, relacionado con el recorrido de la matriz de adyacencia y las operaciones realizadas sobre el min-heap.
 
-En **Kruskal**, los tiempos también aumentan conforme crece `N`, aunque se presentan mayores variaciones entre algunos tamaños de entrada. Para valores cercanos a `n = 1000`, el tiempo registrado alcanza aproximadamente **2.1 milisegundos**.
+En **Kruskal**, los tiempos también aumentan conforme crece **N**, aunque se presentan mayores variaciones entre algunos tamaños de entrada. Para valores cercanos a **n = 1000**, el tiempo registrado alcanza aproximadamente **2.1 milisegundos**.
 
 En general, los resultados experimentales muestran el crecimiento esperado de ambos algoritmos: para entradas pequeñas los tiempos son reducidos, mientras que al aumentar el número de vértices también aumenta el trabajo necesario para construir el árbol de expansión mínima.
 
@@ -110,5 +110,5 @@ En general, los resultados experimentales muestran el crecimiento esperado de am
 
 - **Lenguaje:** C
 - **Compilador:** GCC
-- **Medición de tiempo:** `clock()`
+- **Medición de tiempo:** **clock()**
 - **Materia:** Análisis de Algoritmos
