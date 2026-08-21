@@ -97,3 +97,18 @@ En Prim, los tiempos fueron registrados en **segundos**, mientras que en Kruskal
 ![Prim Y Kruskal](graficas.png)
 
 ---
+
+## 6. Análisis de los resultados
+
+En **Prim**, los tiempos se mantienen bajos para entradas pequeñas y aumentan de forma progresiva conforme crece `N`. Para valores cercanos a `n = 1000`, el tiempo alcanza aproximadamente **0.005 segundos**. La gráfica presenta un crecimiento continuo, relacionado con el recorrido de la matriz de adyacencia y las operaciones realizadas sobre el min-heap.
+
+En **Kruskal**, los tiempos también aumentan conforme crece `N`, aunque se presentan mayores variaciones entre algunos tamaños de entrada. Para valores cercanos a `n = 1000`, el tiempo registrado alcanza aproximadamente **2.1 milisegundos**.
+
+En general, los resultados experimentales muestran el crecimiento esperado de ambos algoritmos: para entradas pequeñas los tiempos son reducidos, mientras que al aumentar el número de vértices también aumenta el trabajo necesario para construir el árbol de expansión mínima.
+
+### Tecnologías utilizadas
+
+- **Lenguaje:** C
+- **Compilador:** GCC
+- **Medición de tiempo:** `clock()`
+- **Materia:** Análisis de Algoritmos
