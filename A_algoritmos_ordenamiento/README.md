@@ -125,6 +125,7 @@ Por lo tanto:
 ```text
 n × log<sub>2</sub>(n), $n_{i}$
 ```
+$n \times \log_{2}(n)$
 
 y su complejidad temporal es:
 ```text
