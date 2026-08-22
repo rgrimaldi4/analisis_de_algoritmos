@@ -123,7 +123,7 @@ niveles de recursión.
 Al regresar de la recursión, los subarreglos se mezclan de forma ordenada. En cada nivel de recursión, el proceso de mezcla recorre en total los n elementos del arreglo.
 Por lo tanto:
 ```text
-n × log<sub>2</sub>(n), $n_i$
+n × log<sub>2</sub>(n), $n_{i}$
 ```
 
 y su complejidad temporal es:
