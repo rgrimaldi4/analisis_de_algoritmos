@@ -10,22 +10,14 @@ En esta práctica se utiliza una versión recursiva, una versión recursiva con 
 
 LCSS consiste en encontrar la longitud de la subsecuencia común más larga entre dos cadenas.
 
-Una subsecuencia mantiene el orden de los caracteres de la cadena original, pero no es necesario que los caracteres se encuentren de forma consecutiva.
-
-Por ejemplo, para las cadenas:
+Una subsecuencia mantiene el orden de los caracteres de la cadena original, pero no es necesario que los caracteres se encuentren de forma consecutiva. Por ejemplo, para las cadenas:
 
 ```text
 A = "ABCDEF"
 B = "ACE"
 ```
 
-Una subsecuencia común es:
-
-```text
-ACE
-```
-
-con una longitud de `3`.
+Una subsecuencia común es **ACE**, con una longitud de `3`.
 
 ---
 
@@ -33,71 +25,50 @@ con una longitud de `3`.
 
 Para resolver el problema se implementaron las siguientes versiones:
 
-- LCSS recursivo.
-- LCSS recursivo con memoización.
-- LCSS iterativo.
-
-El objetivo es observar cómo cambia el número de pasos y el tiempo de ejecución entre las tres versiones conforme aumenta el tamaño de las cadenas.
-
+**- LCSS recursivo.**
+**- LCSS recursivo con memoización.**
+**- LCSS iterativo.**
 
 ### LCSS recursivo
 
-**Archivo:** "subsequence.c"
+**Archivo: "subsequence.c"**
 
-La versión recursiva compara los caracteres actuales de ambas cadenas.
-
-Si los caracteres son iguales, se agrega `1` al resultado y se avanza una posición en ambas cadenas.
-
-Si son diferentes, se consideran dos casos:
+La versión recursiva compara los caracteres actuales de ambas cadenas. Si los caracteres son iguales, se agrega **1** al resultado y se avanza una posición en ambas cadenas. Si son diferentes, se consideran dos casos:
 
 ```text
 Avanzar en la cadena A.
 Avanzar en la cadena B.
 ```
 
-El algoritmo continúa realizando llamadas recursivas y selecciona el resultado mayor entre ambos casos.
+El algoritmo continúa realizando llamadas recursivas y selecciona el resultado mayor entre ambos casos. 
 
 El problema de esta implementación es que algunos subproblemas se calculan repetidamente, provocando un rápido crecimiento en el número de llamadas.
 
 ### LCSS con memoización
 
-**Archivo:** "subsequeceMemo.c"
+**Archivo: "subsequeceMemo.c"**
 
-La esta versión utiliza recursión con **memoización**.
-
-La memoización consiste en almacenar en una matriz los resultados de los subproblemas que ya fueron calculados.
-
-Antes de realizar nuevamente un cálculo, el algoritmo verifica si el resultado se encuentra almacenado:
+Esta versión utiliza **recursión con memoización**. La memoización consiste en almacenar en una matriz los resultados de los subproblemas que ya fueron calculados. Antes de realizar nuevamente un cálculo, el algoritmo verifica si el resultado se encuentra almacenado:
 
 ```c
 if (dp[i][j] != -1)
     return dp[i][j];
 ```
 
-Si el resultado ya existe, se retorna directamente.
-
-De esta forma se evita repetir los mismos cálculos realizados uno y otra vez.
-
-Este enfoque corresponde a programación dinámica **Top-Down**.
+Si el resultado ya existe, se retorna directamente. De esta forma se evita repetir los mismos cálculos realizados uno y otra vez. Este enfoque corresponde a programación dinámica **Top-Down**.
 
 ### LCSS iterativo
 
-**Archivo:** "subsequenceiterativa.c"
+**Archivo: "subsequenceiterativa.c"**
 
-La tercera versión utiliza programación dinámica de forma iterativa.
-
-Se utiliza una matriz donde cada posición almacena el resultado obtenido para una parte de las dos cadenas.
-
-El algoritmo recorre la matriz mediante dos ciclos anidados:
+La tercera versión utiliza programación dinámica de forma iterativa. Se utiliza una matriz donde cada posición almacena el resultado obtenido para una parte de las dos cadenas. El algoritmo recorre la matriz mediante dos ciclos anidados:
 
 ```c
 for (int i = 1; i <= n; i++) {
     for (int j = 1; j <= m; j++) {
 ```
 
-Si los caracteres coinciden, se utiliza el valor de la posición diagonal anterior más `1`.
-
-Si son diferentes, se selecciona el mayor resultado previamente calculado.
+Si los caracteres coinciden, se utiliza el valor de la posición diagonal anterior más **1**. Si son diferentes, se selecciona el mayor resultado previamente calculado.
 
 Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 
@@ -107,80 +78,41 @@ Este enfoque corresponde a programación dinámica **Bottom-Up** o tabulación.
 
 | Algoritmo | Complejidad temporal |
 |---|:---:|
-| LCSS recursivo | `O(2^(n+m))` |
-| LCSS con memoización | `O(n · m)` |
-| LCSS iterativo | `O(n · m)` |
+| LCSS recursivo | O(2^(n+m)) |
+| LCSS con memoización | O(n * m) |
+| LCSS iterativo | O(n * m) |
 
 ### LCSS recursivo
 
-Cuando los caracteres no coinciden, el algoritmo realiza dos llamadas recursivas.
+Cuando los caracteres no coinciden, el algoritmo realiza dos llamadas recursivas. Estas llamadas pueden generar nuevas llamadas hasta alcanzar el final de alguna de las cadenas. Además, algunos subproblemas se calculan repetidamente.
 
-Estas llamadas pueden generar nuevas llamadas hasta alcanzar el final de alguna de las cadenas.
-
-Además, algunos subproblemas se calculan repetidamente.
-
-Por lo tanto, se considera una complejidad temporal de:
-
-```text
-O(2^(n+m))
-```
+Por ello, su complejidad temporal de **O(2^(n+m))**
 
 ### LCSS con memoización
 
-La versión con memoización almacena los resultados correspondientes a cada combinación de posiciones `(i,j)`.
-
-Como existen hasta `n · m` combinaciones posibles y cada una se calcula una sola vez, la complejidad se reduce a:
-
-```text
-O(n · m)
-```
+La versión con memoización almacena los resultados correspondientes a cada combinación de posiciones **(i,j)**. Como existen hasta **n * m** combinaciones posibles y cada una se calcula una sola vez, la complejidad se reduce a **O(n * m)**
 
 ### LCSS iterativo
 
-La versión iterativa utiliza dos ciclos anidados.
+La versión iterativa utiliza dos ciclos anidados. El primer ciclo recorre los **n** caracteres de una cadena y el segundo los **m** caracteres de la otra.
 
-El primer ciclo recorre los `n` caracteres de una cadena y el segundo los `m` caracteres de la otra.
-
-Por lo tanto, se realizan aproximadamente `n · m` operaciones:
-
-```text
-O(n · m)
-```
+Por lo tanto, se realizan aproximadamente **n * m** operaciones, entonces su complejidad es **O(n * m)**
 
 ---
 
 ## 4. Metodología experimental
 
-Para analizar el comportamiento de las versiones se utilizan diferentes tamaños de cadenas.
+Para analizar el comportamiento de las versiones se utilizan diferentes tamaños de cadenas. Para cada tamaño se registran **Número de pasos y Tiempo de ejecución**.
 
-Para cada tamaño se registran:
-
-- Número de pasos.
-- Tiempo de ejecución.
-
-El tiempo se mide utilizando:
-
-```c
-clock()
-```
-
-y se convierte a segundos mediante:
+El tiempo se mide utilizando **clock()** y se convierte a segundos mediante:
 
 ```c
 tiempo = (double)(tiempo_fin - tiempo_inicio) / CLOCKS_PER_SEC;
 ```
 
-En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función `LCSS()`.
-
-El contador se incrementa mediante:
-
-```c
-pasos++;
-```
+En la versión recursiva y con memoización se considera como un **paso** cada vez que se realiza una llamada a la función **LCSS()**. El contador se incrementa mediante **pasos++;**
 
 En la versión iterativa se considera como un **paso** cada iteración realizada por los dos ciclos que recorren la matriz.
-
-De esta forma, los resultados permiten comparar el crecimiento de las diferentes versiones.
 
 ---
 
