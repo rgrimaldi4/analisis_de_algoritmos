@@ -8,7 +8,7 @@ int final = -1;
 int frente = 0;
 
 //leer archivo
-void leer_archivo(int n, int **R){ //matriz cuadrada
+/*void leer_archivo(int n, int **R){ //matriz cuadrada
     FILE *archivo = fopen("grafo.csv", "r");
     for(int i = 0; i < n; i++){
         R[i] = malloc(sizeof(int)*n);
@@ -20,6 +20,27 @@ void leer_archivo(int n, int **R){ //matriz cuadrada
         while((c = fgetc(archivo)) != '\n' && c != EOF);
     }
     fclose(archivo);
+}*/
+
+//leer archivo
+void leer_archivo(int n, int **R){ //matriz cuadrada
+    FILE *archivo = fopen("coordenadas.csv", "r");
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            fscanf(archivo, "%d,", &R[i][j]);
+        }
+        // Saltar todo lo que queda de esa linea
+        int c;
+        while((c = fgetc(archivo)) != '\n' && c != EOF);
+    }
+    fclose(archivo);
+}
+
+void crearMatriz(int filas, int columnas, int **R){
+    //int **R = malloc(filas * sizeof(int *));
+    for(int i = 0; i < filas; i++) {
+        R[i] = malloc(columnas * sizeof(int));
+    }
 }
 
 void imprimirGrafo(int *parent, int n, int*dist){
@@ -139,7 +160,7 @@ void dijkstra(int **G, int n, int s, int w) {
         }
     }
 
-    imprimirGrafo(parent, n, dist);
+    //imprimirGrafo(parent, n, dist);
 
     free(dist);
     free(visitados);
@@ -149,23 +170,58 @@ void dijkstra(int **G, int n, int s, int w) {
 }
 
 int main(){
+    double tiempo = 0;
+    clock_t inicio_tiempo, fin_tiempo;
+    int experimentos = 30;
 
-    int n_vertices = 5;
-    int **G = malloc(sizeof(int*)*n_vertices);
-    leer_archivo(n_vertices, G);
+    //toma del archivo de 10 en 10
+    for(int k=20; k<=1000; k+=20){
 
-    for(int i=0; i<n_vertices; i++){
-        for(int j=0; j<n_vertices; j++){
-            printf("%d -", G[i][j]);
-        }printf("\n");
-    }
+        int n_vertices = k;
+        int **G = malloc(sizeof(int*)*n_vertices);
+        for(int i = 0; i < n_vertices; i++) {
+            G[i] = malloc(n_vertices * sizeof(int));
+        }   
+
+        leer_archivo(n_vertices, G);
+
+        /*for(int i=0; i<n_vertices; i++){
+            for(int j=0; j<n_vertices; j++){
+                printf("%d -", G[i][j]);
+            }printf("\n");
+        }
+        printf("\n\n");*/
 
 
-    dijkstra(G, n_vertices, 0, 0);
+        double suma = 0;
+        double tiempoMenor = DBL_MAX;
+        double tiempoMayor = 0;
+
+        for( int i=0; i<experimentos; i++ ){
+            inicio_tiempo = clock();
+
+            dijkstra(G, n_vertices, 0, 0);
+
+            fin_tiempo = clock();
+            tiempo = ((double)(fin_tiempo - inicio_tiempo)*1000) / CLOCKS_PER_SEC;
+            suma+=tiempo;
+
+            if(tiempo>tiempoMayor){
+                tiempoMayor = tiempo;
+            }
+            if(tiempo<tiempoMenor){
+                tiempoMenor=tiempo;
+            }
+        }   
+
+        double promedio = (suma-(tiempoMayor+tiempoMenor)) / (experimentos-2);
+        printf("%d, %f\n",k, promedio);
+
+        for(int i = 0; i < n_vertices; i++){
+            free(G[i]);
+        }
+        free(G);
+    }    
 
 
-    for(int i = 0; i < n_vertices; i++){
-        free(G[i]);
-    }
-    free(G);
 }

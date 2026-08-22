@@ -25,11 +25,11 @@ Esta implementación utiliza tres arreglos principales:
 
 Inicialmente, las distancias se establecen en infinito y la distancia del vértice inicial se establece en 0.
 
-Para seleccionar el siguiente vértice, la función **extractMin** recorre el arreglo de distancias y busca el vértice no visitado que tenga la menor distancia.
+Para seleccionar el siguiente vértice, la función **`extractMin`** recorre el arreglo de distancias y busca el vértice no visitado que tenga la menor distancia.
 
 Una vez seleccionado, se recorren sus vértices adyacentes. Para cada uno se calcula la distancia acumulada desde el origen y, si esta distancia es menor que la almacenada anteriormente, se actualizan su distancia y su padre.
 
-Al finalizar, se imprime para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial. 
+Al finalizar, se obtiene para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial.
 
 ---
 
@@ -39,11 +39,13 @@ Esta implementación utiliza los arreglos **dist**, **parent** y **visitados**, 
 
 La cola se organiza utilizando un **min-heap**, donde los vértices son comparados de acuerdo con la distancia almacenada en **dist**.
 
-En cada iteración se extrae un vértice de la cola y posteriormente se reorganiza el heap mediante **min_heapify**.
+En cada iteración se extrae el vértice con menor distancia mediante **`ExtractMin`** y posteriormente se reorganiza el heap mediante **`min_heapify`**.
 
-Después se recorren los vértices adyacentes y se calcula la distancia acumulada. Si se encuentra una distancia menor, se actualizan **dist** y **parent**, y se reorganiza nuevamente el heap de acuerdo con las nuevas distancias.
+Después se recorren los vértices adyacentes y se calcula la distancia acumulada. Si se encuentra una distancia menor, se actualizan **dist** y **parent**, y mediante **`DecreaseKey`** se actualiza la posición del vértice dentro del heap.
 
-Al finalizar, también se imprime para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial. 
+Para localizar directamente cada vértice dentro de la cola se utiliza el arreglo **pos**, evitando recorrer todo el heap para encontrar su posición.
+
+Al finalizar, se obtiene para cada vértice su padre y la distancia mínima encontrada desde el vértice inicial.
 
 ---
 
@@ -51,35 +53,35 @@ Al finalizar, también se imprime para cada vértice su padre y la distancia mí
 
 ### Dijkstra con arreglo de distancias
 
-La función **extractMin** recorre los n vértices para encontrar el vértice no visitado con menor distancia.
+La función **`extractMin`** recorre los `n` vértices para encontrar el vértice no visitado con menor distancia.
 
 Además, cada vez que se selecciona un vértice se recorre una fila de la matriz de adyacencia para buscar sus conexiones.
 
-Como este proceso se realiza para los n vértices, la complejidad de esta implementación es:
+Como este proceso se realiza para los `n` vértices, la complejidad de esta implementación es:
 
-**O(n²)**
+**O(n^2)**
 
 ---
 
 ### Dijkstra con cola de prioridad
 
 Esta implementación utiliza un **min-heap** para organizar los vértices de acuerdo con sus distancias.
-x
-La operación **`ExtractMin`** permite extraer el vértice con la menor distancia y despues se reorganiza el heap mediante **`min_heapify`**. 
 
-Como un heap es un árbol binario completo, su altura crece de forma logarítmica respecto al número de vértices, es decir, **`O(log n)`**. Por lo tanto, en el peor caso min_heapify puede recorrer desde la raíz hasta una hoja, dando a ExtractMin una complejidad:
+La operación **`ExtractMin`** permite extraer el vértice con la menor distancia y después se reorganiza el heap mediante **`min_heapify`**.
 
-**O(log n)**
-
-Cuando en la relajación se encuentra una distancia menor para un vértice, se utiliza **`DecreaseKey`** para actualizar su posición dentro del heap. Gracias al arreglo de posiciones, el vértice puede localizarse directamente y desplazarse hacia arriba en el heap, por lo que esta operación también tiene una complejidad de:
+Como un heap es un árbol binario completo, su altura crece de forma logarítmica respecto al número de vértices, es decir, **O(log n)**. Por lo tanto, en el peor caso `min_heapify` puede recorrer desde la raíz hasta una hoja, dando a `ExtractMin` una complejidad de:
 
 **O(log n)**
 
-Y por cada vértice extraído se recorre una fila completa de la matriz de adyacencia para buscar sus conexiones. En el peor caso, se procesan `n` vértices y para cada uno se revisan hasta `n` posibles adyacentes.
+Durante la relajación, si se encuentra una distancia menor para un vértice, se utiliza **`DecreaseKey`** para actualizar su posición dentro del heap. Gracias al arreglo de posiciones, el vértice puede localizarse directamente y flotar hacia arriba en el heap, por lo que esta operación también tiene una complejidad de:
 
-Considerando que dentro de este recorrido puede ejecutarse `DecreaseKey`, el crecimiento en el peor caso es:
+**O(log n)**
 
-**n*n * log V**
+Además, por cada vértice extraído se recorre una fila completa de la matriz de adyacencia para buscar sus conexiones. En el peor caso, se procesan `n` vértices y para cada uno se revisan hasta `n` posibles adyacentes.
+
+Considerando que dentro de este recorrido puede ejecutarse `DecreaseKey`, el crecimiento considerado en el peor caso es:
+
+**n * n * log n**
 
 Por lo tanto, la complejidad considerada para esta implementación es:
 
@@ -87,42 +89,46 @@ Por lo tanto, la complejidad considerada para esta implementación es:
 
 ---
 
-## 4. Funcionamiento
+## 4. Metodología experimental
 
-Para comprobar el funcionamiento de los algoritmos se utiliza un grafo almacenado en el archivo **grafo.csv** y representado mediante una matriz de adyacencia.
+Para analizar el comportamiento de las dos implementaciones se utilizó una matriz de adyacencia almacenada en el archivo **`coordenadas.csv`**.
 
-En ambas implementaciones se utilizan 5 vértices y se toma el vértice 0 como punto inicial:
+El número de vértices se incrementó progresivamente hasta alcanzar un tamaño máximo de **1000 vértices**. Para cada tamaño se tomó la submatriz correspondiente y se ejecutó Dijkstra comenzando desde el vértice 0.
 
-**dijkstra(G, n_vertices, 0, 0);**
+Para cada tamaño de entrada se realizaron **30 experimentos** y se registró el tiempo de ejecución en milisegundos mediante la función **`clock()`**.
 
-Los algoritmos calculan las distancias desde este vértice hacia los demás vértices del grafo. 
----
+Con el objetivo de reducir el efecto de valores extremos, de las 30 mediciones se eliminó el tiempo mayor y el tiempo menor. El promedio se calculó utilizando las **28 mediciones restantes**.
 
-## 5. Datos de salida
+El tiempo promedio utilizado en las gráficas se obtuvo mediante:
 
-Al finalizar la ejecución, los dos algoritmos muestran para cada vértice:
-
-- **Vértice:** vértice correspondiente.
-- **Padre:** vértice desde el cual se obtuvo la menor distancia.
-- **Distancia:** distancia mínima encontrada desde el vértice inicial.
-
-La salida permite observar los padres seleccionados por Dijkstra y las distancias mínimas obtenidas desde el vértice 0 hacia los demás vértices.
+**promedio = (suma de tiempos - tiempo mayor - tiempo menor) / 28**
 
 ---
 
-## 6. Comparación de los enfoques
 
-Los dos algoritmos resuelven el mismo problema y utilizan una matriz de adyacencia, pero se diferencian principalmente en la forma de seleccionar el siguiente vértice.
+## 5. Gráficas
 
-La primera implementación utiliza un **arreglo de distancias** y realiza una búsqueda lineal para encontrar el vértice con menor distancia.
+Las gráficas muestran el tiempo promedio de ejecución conforme aumenta el número de vértices utilizados de la matriz de adyacencia.
 
-La segunda implementación utiliza una **cola de prioridad basada en un min-heap**, buscando mantener los vértices organizados de acuerdo con sus distancias.
+### Dijkstra
 
-De esta forma, ambas implementaciones permiten observar diferentes maneras de realizar la selección del siguiente vértice dentro del algoritmo de Dijkstra.
+![Dijkstra](grafica.png)
+
+---
+
+## 6. Análisis de los resultados
+
+Los resultados muestran que en ambas implementaciones el tiempo de ejecución aumenta conforme crece el número de vértices del grafo.
+
+En **Dijkstra con arreglo de distancias**, el crecimiento está relacionado con su complejidad **O(n²)**. La búsqueda del vértice con menor distancia requiere recorrer el arreglo de distancias y, posteriormente, se recorre una fila completa de la matriz de adyacencia.
+
+En **Dijkstra con cola de prioridad**, el crecimiento está relacionado con el recorrido de la matriz de adyacencia y con las operaciones realizadas sobre el **min-heap**. Las operaciones `ExtractMin` y `DecreaseKey` pueden requerir un recorrido sobre la altura del heap, dando un costo de **O(log n)**. Considerando estas operaciones dentro del procesamiento de los vértices y sus posibles adyacentes, se considera una complejidad de **O(n^2 log n)**.
+
+Las gráficas presentan algunos aumentos y disminuciones puntuales en los tiempos registrados. Estas variaciones pueden estar relacionadas con factores propios de la ejecución, como la administración de memoria, la precisión de la medición y otros procesos ejecutados por el sistema. Sin embargo, la tendencia general de ambas gráficas muestra un aumento cuadratico del tiempo conforme aumenta el tamaño de entrada.
 
 ### Tecnologías utilizadas
 
 - **Lenguaje:** C
 - **Compilador:** GCC
-- **Representación del grafo:** Matriz de adyacencia
+- **Medición de tiempo:** **clock()**
 - **Materia:** Análisis de Algoritmos
