@@ -72,10 +72,10 @@ Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
 | Algoritmo | Complejidad temporal |
 |---|:---:|
-| Selección In-Place | `O(n^2)` |
-| Bubble Sort | `O(n^2)` |
-| Merge Sort | `O(n log n)` |
-| Permutation Sort | `O(n * n!)` |
+| Selección In-Place | O(n^2) |
+| Bubble Sort | O(n^2) |
+| Merge Sort | O(n * log n) |
+| Permutation Sort | O(n * n!) |
 
 #### Selección In-Place
 
@@ -116,34 +116,31 @@ O(n^2)
 
 Merge Sort divide repetidamente el arreglo aproximadamente a la mitad hasta obtener subarreglos de un solo elemento. Como en cada división el tamaño del problema se reduce a la mitad, se generan aproximadamente:
 ```text
-log₂(n)
+log n
 ```
 niveles de recursión.
 
 Al regresar de la recursión, los subarreglos se mezclan de forma ordenada. En cada nivel de recursión, el proceso de mezcla recorre en total los n elementos del arreglo.
 Por lo tanto:
-
-$$
-n \times \log_{2}(n)
-$$
-
-
+```text
+n * log n
+```
 
 y su complejidad temporal es:
 ```text
-O(n log n)
+O(n * log n)
 ```
 
-#### Permutation Sort — `O(n · n!)`
+#### Permutation Sort
 Permutation Sort genera diferentes permutaciones de los elementos del arreglo y comprueba cada una hasta encontrar una que esté ordenada.
 
-Para `n` elementos existen:
+Para n elementos existen:
 ```text
 n!
 ```
 permutaciones posibles.
 
-Además, comprobar si una permutación está ordenada puede requerir recorrer hasta `n` elementos.
+Y comprobar si una permutación está ordenada puede requerir recorrer hasta n elementos.
 Por lo tanto, el crecimiento considerado para el análisis es:
 ```text
 O(n · n!)
@@ -159,7 +156,7 @@ Para estudiar el comportamiento de los algoritmos se utilizaron conjuntos de dat
 
 Para cada tamaño se registraron:
 
-- **Tamaño de entrada (`n`).**
+- **Tamaño de entrada n.**
 - **Número de pasos realizados.**
 - **Tiempo de ejecución en segundos.**
 
@@ -171,13 +168,7 @@ El promedio se calculó utilizando las 28 mediciones restantes:
 promedio = (suma_tiempos - tiempo_mayor - tiempo_menor) / 28
 ```
 
-El tiempo de ejecución fue medido en C utilizando:
-
-```c
-clock()
-```
-
-y convertido a segundos mediante:
+El tiempo de ejecución fue medido en C utilizando **clock()**, y convertido a segundos mediante:
 
 ```c
 tiempo = (double)(fin_tiempo - inicio_tiempo) / CLOCKS_PER_SEC;
@@ -185,13 +176,9 @@ tiempo = (double)(fin_tiempo - inicio_tiempo) / CLOCKS_PER_SEC;
 
 ### Tamaños de entrada
 
-Para los algoritmos capaces de trabajar con entradas grandes se utilizaron tamaños crecientes hasta llegar a:
+Para permutation Sort, se funciona bien para tamaños de entrada chicos debido a su rápido crecimiento. Los experimentos se realizaron desde **n=2 hasta n=13**, para n=14, el tiempo fue indeterminado.
 
-```text
-n = 100000
-```
-
-Permutation Sort requiere tamaños considerablemente menores debido a su rápido crecimiento.
+Para el resto de los algoritmos se utilizaron entradas mas grandes, iniciando en **n=10 hasta n=1000.**
 
 ---
 
@@ -208,7 +195,7 @@ Permutation Sort requiere tamaños considerablemente menores debido a su rápido
 
 **Selección In-Place** y **Bubble Sort** presentan un crecimiento cuadrático **O(n^2)**. Esto se debe a que ambos realizan una gran cantidad de comparaciones sobre los elementos del arreglo. Conforme aumenta **n**, el número de operaciones y el tiempo de ejecución aumentan considerablemente, haciendo que estos algoritmos sean menos eficientes para entradas grandes.
 
-En el caso de **Merge Sort**, su complejidad **O(n log n)** permite un crecimiento menor. La estrategia de dividir el problema en partes más pequeñas y posteriormente combinar los resultados reduce la cantidad de operaciones necesarias en comparación con los algoritmos anteriores, por lo que presenta un mejor comportamiento al trabajar con conjuntos de datos grandes.
+En el caso de **Merge Sort**, su complejidad **O(n * log n)** permite un crecimiento menor. La estrategia de dividir el problema en partes más pequeñas y posteriormente combinar los resultados reduce la cantidad de operaciones necesarias en comparación con los algoritmos anteriores, por lo que presenta un mejor comportamiento al trabajar con conjuntos de datos grandes.
 
 Por otro lado, **Permutation Sort** presenta el crecimiento más elevado, con una complejidad **O(n * n!)**. El número de permutaciones aumenta rápidamente conforme crece **n**, provocando que el algoritmo se vuelva impráctico incluso para tamaños de entrada pequeños.
 
@@ -220,6 +207,6 @@ Aunque todos resuelven el mismo problema de ordenamiento, la estrategia utilizad
 
 - **Lenguaje:** C
 - **Compilador:** GCC
-- **Medición de tiempo:** `clock()`
+- **Medición de tiempo:** clock()
 - **Datos experimentales:** archivos CSV
 - **Materia:** Análisis de Algoritmos
