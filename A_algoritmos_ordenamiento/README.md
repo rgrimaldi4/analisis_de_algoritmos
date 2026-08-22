@@ -6,9 +6,9 @@ En esta práctica se estudian algoritmos con diferentes estrategias y complejida
 ---
 
 ## 1. Descripción del problema
-El problema consiste en ordenar de menor a mayor un conjunto de números enteros inicialmente desordenados.
+El problema consiste en ordenar de menor a mayor un conjunto de números enteros que inicialmente estan desordenados.
 
-Los datos de entrada se obtienen de un archivo que contiene números desordenados. A partir de estos datos se construyen arreglos de diferentes tamaños para analizar el comportamiento de los algoritmos conforme aumenta el número de elementos n.
+Los números se obtienen de un archivo y, a partir de ellos, se forman arreglos de diferentes tamaños. Estos arreglos se utilizan para ejecutar los algoritmos y observar su comportamiento conforme aumenta el número de elementos.
 
 Se implementaron y analizaron los siguientes algoritmos:
 
@@ -26,35 +26,33 @@ El algoritmo busca el elemento mayor dentro de la parte no ordenada del arreglo.
 
 Una vez localizado, intercambia dicho elemento con la última posición disponible. Después del intercambio, el límite de búsqueda se reduce en una posición y el proceso se repite hasta ordenar completamente el arreglo. Esta implementación trabaja directamente sobre el arreglo original, por lo que no necesita construir un segundo arreglo para almacenar el resultado.
 
-La práctica también contempla variantes de esta estrategia mediante borrado físico y borrado lógico.
+Este ejercicio, también contempla dos variantes de esta estrategia mediante borrado físico y borrado lógico.
 
 <b>Borrado físico</b>
 En esta versión, después de encontrar el elemento correspondiente, este se elimina físicamente del arreglo. Los elementos posteriores se desplazan una posición y el tamaño del arreglo disminuye.
 
-**Archivo:** "inplace/ordenamiento.c"
+**Archivo: "inplace/ordenamiento.c"**
 
 <b>Borrado lógico</b>
 En esta versión no se elimina físicamente el elemento. Después de seleccionar el mayor, su posición se marca para indicar que ya fue procesada. 
 
-**Archivo:** "inplace/ordenamiento_bl.c"
+**Archivo: "inplace/ordenamiento_bl.c"**
 
 ### Bubble Sort
 Bubble Sort recorre repetidamente el arreglo comparando elementos adyacentes.
 
-Si dos elementos se encuentran en el orden incorrecto, se intercambian. Como resultado de cada recorrido, los elementos mayores se desplazan progresivamente hacia el final del arreglo.
+Si dos elementos se encuentran en el orden incorrecto, se intercambian. Como resultado de cada recorrido, los elementos mayores se desplazan progresivamente hacia el final del arreglo. Después de cada iteracion se reduce la cantidad de elementos que necesitan ser comparados, ya que la parte final del arreglo se encuentra ordenada.
 
-Después de cada pasada se reduce la cantidad de elementos que necesitan ser comparados, ya que la parte final del arreglo se encuentra ordenada.
-
-**Archivo:** "bubble_sort/order.c"
+**Archivo: "bubble_sort/order.c"**
 
 ### Merge Sort
-Merge Sort utiliza la estrategia de divide y vencerás.
+Merge Sort utiliza la estrategia **divide y vencerás**.
 
-El arreglo se divide recursivamente en dos partes hasta obtener subarreglos de un solo elemento. Posteriormente, durante el regreso de la recursión, los subarreglos se combinan mediante el proceso de merge.
+El arreglo se divide recursivamente en dos partes hasta obtener subarreglos de un solo elemento. Luego, durante el regreso de la recursión, los subarreglos se combinan mediante el proceso de merge.
 
 Durante esta combinación se comparan los elementos de ambos subarreglos y se colocan ordenadamente en el arreglo resultante.
 
-**Archivo:** "merge_sort/order.c"
+**Archivo: "merge_sort/order.c"**
 
 ### Permutation Sort
 
@@ -62,9 +60,9 @@ Permutation Sort genera diferentes permutaciones de los elementos del arreglo ha
 
 Después de generar una permutación, el algoritmo recorre el arreglo para verificar si los elementos están ordenados.
 
-Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta el tamaño de entrada, por lo que presenta un crecimiento considerablemente mayor que los otros algoritmos estudiados.
+Este procedimiento puede requerir una gran cantidad de intentos conforme aumenta el tamaño de entrada, por ello presenta un crecimiento considerablemente mayor que los otros algoritmos estudiados.
 
-**Archivo:** "permutation_sort/order.c"
+**Archivo: "permutation_sort/order.c"**
 
 ---
 
@@ -74,47 +72,47 @@ Se analiza la complejidad temporal de cada una de las soluciones implementadas.
 
 | Algoritmo | Complejidad temporal |
 |---|:---:|
-| Selección In-Place | `O(n²)` |
-| Bubble Sort | `O(n²)` |
+| Selección In-Place | `O(n^2)` |
+| Bubble Sort | `O(n^2)` |
 | Merge Sort | `O(n log n)` |
-| Permutation Sort | `O(n · n!)` |
+| Permutation Sort | `O(n * n!)` |
 
-#### Selección In-Place — `O(n²)`
+#### Selección In-Place
+
 El algoritmo utiliza dos ciclos anidados para ordenar el arreglo. El ciclo externo determina la parte del arreglo que todavía falta por ordenar, mientras que el ciclo interno recorre esa parte para buscar el elemento mayor.
 
-En la primera iteración, el ciclo interno realiza aproximadamente n−1 comparaciones; en la siguiente, n−2; después n−3, y así sucesivamente:
+Como se menciono anteriormente, cuando se encuentra el primer elemento mayor, este se intercambia con el elemento que se encuentra al final de la parte no ordenada. Este proceso se repite, reduciendo en cada iteración la cantidad de elementos que faltan por ordenar.
+
+Entonces, en la primera iteración, el ciclo interno realiza aproximadamente n−1 comparaciones; en la siguiente, n−2; después n−3, y así sucesivamente:
 El número aproximado de comparaciones es:
 ```text
 (n - 1) + (n - 2) + (n - 3) + ... + 1
 ```
-
 Esta suma corresponde a:
 ```text
 n(n - 1) / 2
 ```
-
 En el análisis asintótico se eliminan las constantes y los términos de menor crecimiento, por lo que domina:
 ```text
-O(n²)
+O(n^2)
 ```
 
-#### Bubble Sort — `O(n²)`
+#### Bubble Sort
 
-Bubble Sort utiliza dos ciclos anidados para realizar recorridos sucesivos sobre el arreglo. En cada pasada, el ciclo interno compara elementos adyacentes y los intercambia si están en el orden incorrecto.
+Bubble Sort también utiliza dos ciclos anidados, al igual que el algoritmo anterior. El ciclo interno recorre el arreglo comparando elementos adyacentes y los intercambia cuando se encuentran en el orden incorrecto.
 
-Al terminar cada pasada, el elemento mayor de la parte no ordenada queda colocado en su posición final. Por esta razón, en cada nueva pasada se puede reducir en uno la cantidad de elementos que se recorren.
+Después de cada iteracion, el elemento mayor de la parte no ordenada queda en su posición final. Por esto, en la siguiente iteración se puede recorrer un elemento menos del arreglo.
 
 El número de comparaciones disminuye progresivamente:
 ```text
 (n - 1) + (n - 2) + ... + 1
 ```
-
 Por lo tanto, su complejidad temporal es:
 ```text
-O(n²)
+O(n^2)
 ```
 
-#### Merge Sort — `O(n log n)`
+#### Merge Sort
 
 Merge Sort divide repetidamente el arreglo aproximadamente a la mitad hasta obtener subarreglos de un solo elemento. Como en cada división el tamaño del problema se reduce a la mitad, se generan aproximadamente:
 ```text
@@ -125,7 +123,7 @@ niveles de recursión.
 Al regresar de la recursión, los subarreglos se mezclan de forma ordenada. En cada nivel de recursión, el proceso de mezcla recorre en total los n elementos del arreglo.
 Por lo tanto:
 ```text
-n × log₂(n)
+n × log<sub>2</sub>(n)
 ```
 
 y su complejidad temporal es:
@@ -153,6 +151,7 @@ Este crecimiento factorial provoca que el algoritmo deje de ser práctico inclus
 ---
 
 ## 4. Metodología experimental
+
 Para estudiar el comportamiento de los algoritmos se utilizaron conjuntos de datos con diferentes tamaños de entrada.
 
 Para cada tamaño se registraron:
@@ -193,25 +192,7 @@ Permutation Sort requiere tamaños considerablemente menores debido a su rápido
 
 ---
 
-## 5. Resultados
-
-Los resultados experimentales obtenidos se almacenaron en archivos `.csv` para posteriormente calcular promedios y generar las gráficas correspondientes.
-
-Para cada algoritmo se analizaron principalmente las siguientes variables:
-
-| Tamaño `n` | Pasos | Tiempo promedio (s) |
-|---:|---:|---:|
-| ... | ... | ... |
-| ... | ... | ... |
-| ... | ... | ... |
-
-Los resultados permiten comparar experimentalmente cómo aumenta el costo computacional de cada algoritmo conforme aumenta el tamaño de entrada.
-
----
-
-## 6. Gráficas
-
-A partir de los resultados experimentales se generaron gráficas para observar el crecimiento de los algoritmos conforme aumenta el tamaño de entrada.
+## 5. Gráficas
 
 ![Gráficas](graficas.png)
 
@@ -220,27 +201,15 @@ A partir de los resultados experimentales se generaron gráficas para observar e
 
 ---
 
-## 7. Análisis de resultados
+## 6. Análisis de resultados
 
-Teóricamente se espera observar diferencias importantes entre los algoritmos conforme aumenta el tamaño de entrada.
+**Selección In-Place** y **Bubble Sort** presentan un crecimiento cuadrático **O(n^2)**. Esto se debe a que ambos realizan una gran cantidad de comparaciones sobre los elementos del arreglo. Conforme aumenta **n**, el número de operaciones y el tiempo de ejecución aumentan considerablemente, haciendo que estos algoritmos sean menos eficientes para entradas grandes.
 
-**Selección In-Place** y **Bubble Sort** presentan crecimiento cuadrático `O(n²)`. Por lo tanto, al aumentar `n`, el número de operaciones aumenta considerablemente.
+En el caso de **Merge Sort**, su complejidad **O(n log n)** permite un crecimiento menor. La estrategia de dividir el problema en partes más pequeñas y posteriormente combinar los resultados reduce la cantidad de operaciones necesarias en comparación con los algoritmos anteriores, por lo que presenta un mejor comportamiento al trabajar con conjuntos de datos grandes.
 
-**Merge Sort** presenta una complejidad `O(n log n)`, por lo que se espera que su crecimiento sea menor que el de los algoritmos cuadráticos cuando se utilizan entradas grandes.
+Por otro lado, **Permutation Sort** presenta el crecimiento más elevado, con una complejidad **O(n * n!)**. El número de permutaciones aumenta rápidamente conforme crece **n**, provocando que el algoritmo se vuelva impráctico incluso para tamaños de entrada pequeños.
 
-**Permutation Sort** presenta el crecimiento más elevado de los algoritmos estudiados. Debido al número de permutaciones posibles, el incremento del tamaño de entrada provoca un aumento muy rápido del número de operaciones necesarias.
-
----
-
-## 8. Conclusiones
-
-La implementación de diferentes algoritmos para resolver un mismo problema permite observar que la estrategia utilizada tiene un efecto directo sobre la eficiencia computacional.
-
-Los algoritmos cuadráticos, como Bubble Sort y el ordenamiento por selección In-Place, pueden funcionar adecuadamente para entradas pequeñas, pero su costo aumenta rápidamente conforme crece `n`.
-
-Merge Sort utiliza la estrategia de divide y vencerás para reducir el crecimiento a `O(n log n)`, lo que teóricamente permite un mejor comportamiento para conjuntos de datos grandes.
-
-Por otro lado, Permutation Sort presenta un crecimiento factorial y permite observar experimentalmente cómo un algoritmo puede volverse impráctico incluso con incrementos pequeños en el tamaño de entrada.
+Aunque todos resuelven el mismo problema de ordenamiento, la estrategia utilizada determina la cantidad de operaciones necesarias y, por lo tanto, el tamaño de entrada que pueden procesar de manera práctica.
 
 ---
 

@@ -87,66 +87,66 @@ int main(){
     int **R = malloc(sizeof(int*)*MAX);
     crearMatriz(MAX, MAX, R);
 
-        //toma del archivo de 10 en 10
-        for(int k=10; k<1000; k+=20){
+    //toma del archivo de 10 en 10
+    for(int k=10; k<1000; k+=20){
 
-            leer_archivo(k, R);
-            int nu_aristas = contarAristas(R, k);
+        leer_archivo(k, R);
+        int nu_aristas = contarAristas(R, k);
 
-            double mayor = -1;
-            double menor = DBL_MAX;
-            double suma = 0;            
-        
-            for(int ex = 0; ex < experimentos; ex++){
-            
-                int *V = malloc(sizeof(int)*k);
-                int (*A)[3] = malloc(nu_aristas * sizeof(int[3]));
-                int (*T)[3] = malloc((k - 1) * sizeof(int[3]));
-
-                make_set(V, k);
-                setAristas(A, R, k);
-                qsort(A, nu_aristas, sizeof(A[0]), comparar);
-
-                int aristasTomadas = 0;
-                int pesoTotal = 0;
-
-                //principal
-                inicio_tiempo = clock();
-                for(int i = 0; i < nu_aristas && aristasTomadas < k - 1; i++){
-                //for(int i = 0; i < (nu_aristas-1); i++){
-                    int origen = A[i][0];
-                    int destino = A[i][1];
-                    int peso = A[i][2];
-
-                    if(V[origen] != V[destino]){
-                        T[aristasTomadas][0] = origen;
-                        T[aristasTomadas][1] = destino;
-                        T[aristasTomadas][2] = peso;
-
-                        pesoTotal += peso;
-                        union_set(V, origen, destino, k);
-                        aristasTomadas++;
-                    }
-                }
-                fin_tiempo = clock();
-                tiempo = ((double)(fin_tiempo-inicio_tiempo)*1000)/CLOCKS_PER_SEC;
-
-                suma+=tiempo;
-                if(tiempo > mayor )
-                    mayor = tiempo;
-                if(tiempo < menor )
-                    menor = tiempo;
-                
-                //printf("peso:%d | tiempo:%f \n", pesoTotal, tiempo);
-
-                /*for(int i = 0; i < k; i++){
-                    free(R[i]);
-                }*/
-            }
-            double promedio = (suma-(mayor+menor)) / (experimentos-2);
-            printf("%f\n",promedio);
-        }
+        double mayor = -1;
+        double menor = DBL_MAX;
+        double suma = 0;            
     
+        for(int ex = 0; ex < experimentos; ex++){
+        
+            int *V = malloc(sizeof(int)*k);
+            int (*A)[3] = malloc(nu_aristas * sizeof(int[3]));
+            int (*T)[3] = malloc((k - 1) * sizeof(int[3]));
+
+            make_set(V, k);
+            setAristas(A, R, k);
+            qsort(A, nu_aristas, sizeof(A[0]), comparar);
+
+            int aristasTomadas = 0;
+            int pesoTotal = 0;
+
+            //principal
+            inicio_tiempo = clock();
+            for(int i = 0; i < nu_aristas && aristasTomadas < k - 1; i++){
+            //for(int i = 0; i < (nu_aristas-1); i++){
+                int origen = A[i][0];
+                int destino = A[i][1];
+                int peso = A[i][2];
+
+                if(V[origen] != V[destino]){
+                    T[aristasTomadas][0] = origen;
+                    T[aristasTomadas][1] = destino;
+                    T[aristasTomadas][2] = peso;
+
+                    pesoTotal += peso;
+                    union_set(V, origen, destino, k);
+                    aristasTomadas++;
+                }
+            }
+            fin_tiempo = clock();
+            tiempo = ((double)(fin_tiempo-inicio_tiempo)*1000)/CLOCKS_PER_SEC;
+
+            suma+=tiempo;
+            if(tiempo > mayor )
+                mayor = tiempo;
+            if(tiempo < menor )
+                menor = tiempo;
+            
+            //printf("peso:%d | tiempo:%f \n", pesoTotal, tiempo);
+
+            /*for(int i = 0; i < k; i++){
+                free(R[i]);
+            }*/
+        }
+        double promedio = (suma-(mayor+menor)) / (experimentos-2);
+        printf("%f\n",promedio);
+    }
+
     for(int i = 0; i < MAX; i++){
         free(R[i]);
     }
