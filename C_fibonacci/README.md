@@ -147,17 +147,11 @@ A partir de los resultados experimentales se generaron gráficas para observar e
 
 ## 6. Análisis de resultados
 
-En la versión recursiva, el número de llamadas aumenta rápidamente conforme aumenta n, debido a que los mismos valores de Fibonacci se calculan varias veces.
+En la versión recursiva, tanto el número de pasos como el tiempo de ejecución aumentan rápidamente conforme crece n. Esto ocurre porque para calcular cada valor se realizan llamadas a **fibo(n-1) y fibo(n-2)**, provocando que los mismos valores se calculen varias veces. Este crecimiento observado en las gráficas corresponde al comportamiento exponencial esperado del algoritmo, con complejidad **O(2^n)**
 
-Este comportamiento produce un crecimiento exponencial, consistente con la complejidad **O(2^n)**
+En la versión con memoización, el crecimiento del número de pasos es mucho menor. Una vez calculado un valor, este se almacena en un arreglo y en las siguientes llamadas pueden obtenerlo directamente, evitando repetir los mismos cálculos. Esto produce un crecimiento lineal, correspondiente a su complejidad O(n).
 
-En la versión con memoización, los resultados calculados se almacenan y se reutilizan cuando son necesarios nuevamente.
-
-Esto evita repetir cálculos y reduce considerablemente el número de operaciones realizadas.
-
-Por esta razón, se espera observar un crecimiento mucho menor en comparación con la versión recursiva, consistente con **O(n)**
-
-Las gráficas permiten observar la diferencia entre resolver el problema mediante recursión simple y utilizar memoización para evitar cálculos repetidos.
+En las gráficas de tiempo, la diferencia entre ambos métodos se vuelve más evidente conforme aumenta n. La versión recursiva necesita cada vez más tiempo debido al aumento de llamadas, mientras que con memoización los tiempos se mantienen muy bajos porque los resultados ya se encuentran almacenados. En general, los resultados experimentales muestran cómo la memoización reduce bastante el trabajo realizado por el algoritmo al eliminar cálculos repetidos
 
 ---
 
