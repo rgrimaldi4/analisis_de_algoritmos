@@ -6,9 +6,10 @@
 #include <float.h>
 #include <math.h>
 
-#define longCadena 20
+#define longCadena 10000
 #define longAlfabeto 52
 #define MOD 1001
+#define EXPERIMENTOS 30
 
 void escribir(){
     srand(time(NULL));
@@ -22,7 +23,7 @@ void escribir(){
 }
 
 void leerArchivo( char *Text, int n ){
-    FILE *archivo = fopen("cadena_2.csv", "r");
+    FILE *archivo = fopen("cadena_100000_carbon_5000.csv", "r");
     fread(Text, sizeof(char), n, archivo);
     fclose(archivo);
 }
@@ -59,7 +60,7 @@ void search(char *Text, int n, char *Patron, int m){
         int numCar = getNum_caracter( Patron[i] );
         hashPatron = (hashPatron * longAlfabeto + numCar) % MOD;
     }
-    printf("hash patron: %d\n", hashPatron);
+    //printf("hash patron: %d\n", hashPatron);
 
     //hash del primer substring
     int hash = 0;
@@ -71,9 +72,9 @@ void search(char *Text, int n, char *Patron, int m){
     if(hash == hashPatron){
         int inicio = 0;
         int ret = validarCadena(Text, Patron, m, inicio);
-        if(ret==1){
+        /*if(ret==1){
             printf("igual:%d\n", inicio);
-        }
+        }*/
     }
 
     int indCarSale = 0;
@@ -81,7 +82,7 @@ void search(char *Text, int n, char *Patron, int m){
     int hashAnterior = hash;
     int hashNuevo = 0;
 
-    printf("%d\n", hash);
+    //printf("%d\n", hash);
 
     //hash del resto de los substring
     for(int i=m; i<n; i++){
@@ -92,14 +93,14 @@ void search(char *Text, int n, char *Patron, int m){
         //acumular el nuevo caracter
         hashNuevo = (hashNuevo * longAlfabeto + getNum_caracter(Text[i]) ) % MOD;
         
-        printf("%d\n", hashNuevo);
+        //printf("%d\n", hashNuevo);
 
         if(hashNuevo == hashPatron){
             int inicio = i-m+1;
             int ret = validarCadena(Text, Patron, m, inicio);
-            if(ret==1){
+            /*if(ret==1){
                 printf("igual:%d\n", inicio);
-            }
+            }*/
         }
 
         indCarSale++;
@@ -111,15 +112,43 @@ void search(char *Text, int n, char *Patron, int m){
 int main(int argc, char *argv[]){
     //escribir();
 
-    char patron[] = "ABCD";             //patron
+    char patron[] = "carbon";           //patron
     int  longPatron  = strlen(patron);  //longitud del patron
-        
-    char *Texto = malloc(sizeof(char)*longCadena); //reservo memoria para el texto
-    leerArchivo(Texto, longCadena);                //leer el texto del archivo
 
-    search(Texto, longCadena, patron, longPatron );
+    for(int k=100; k<=longCadena; k+=100){
 
+        char *Texto = malloc(sizeof(char)*k); //reservo memoria para el texto
+        leerArchivo(Texto, k);                //leer el texto del archivo
 
-    free(Texto);
+        double tiempoms = 0;
+        double sumaTiempo = 0;
+        double mayorTiempo = 0;
+        double menorTiempo = DBL_MAX;
+
+        //30 experimentos
+        for(int ex=0; ex<EXPERIMENTOS; ex++){
+            clock_t inicio_tiempo = clock();        
+
+            search(Texto, k, patron, longPatron );
+
+            clock_t fin_tiempo = clock();
+
+            tiempoms = ((double)(fin_tiempo - inicio_tiempo) * 1000) / CLOCKS_PER_SEC;
+            sumaTiempo += tiempoms;
+
+            if(tiempoms > mayorTiempo){
+                mayorTiempo = tiempoms;
+            }
+            if(tiempoms < menorTiempo){
+                menorTiempo = tiempoms;
+            }
+        }
+    
+        double promedioTiempo = (sumaTiempo - (mayorTiempo + menorTiempo)) / (EXPERIMENTOS - 2);
+        printf("%d, %f\n", k,  promedioTiempo);
+        free(Texto);
+    }
+
+    
 }
 

@@ -19,7 +19,7 @@ void escribir(){
 }
 
 void leerArchivo( int n , char *Text){
-    FILE *archivo = fopen("cadena.csv", "r");
+    FILE *archivo = fopen("cadena_100000_carbon_5000.csv", "r");
     fread(Text, sizeof(char), n, archivo);
     fclose(archivo);
 }
@@ -41,7 +41,7 @@ void NaiveSearch(char *Text, int n, char *Patron, int m ){
 }
 
 int main(int argc, char *argv[]){
-    char patron[] = "AAAAA";
+    char patron[] = "carbon";
     int n_patron  = strlen(patron);
 
     for(int k=100; k<=longCadena; k+=100){
@@ -54,7 +54,6 @@ int main(int argc, char *argv[]){
         char *Texto = malloc(sizeof(char)*k);
         leerArchivo(k, Texto);
 
-        
         //30 experimentos
         for(int ex=0; ex<EXPERIMENTOS; ex++){
             PASOS=0;
